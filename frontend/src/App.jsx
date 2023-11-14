@@ -72,6 +72,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
             
             <div className="lower">
 
+                 </div>
             </div>
             
           </div>
