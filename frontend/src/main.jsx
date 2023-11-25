@@ -4,10 +4,13 @@ import ReactDOM from 'react-dom/client'
 
 import App from './App.jsx'
 import Return from './Pages/Return.jsx'
-import Borrow from './Pages/Return.jsx'
+import Borrow from './Pages/Borrow.jsx'
+import Account from './Pages/Account.jsx'
 
 import {createBrowserRouter,RouterProvider} from "react-router-dom";
+
 import './CSS/Return.css'
+import './CSS/Account.css'
 import './CSS/Borrow.css'
 import './index.css'
 import 'primereact/resources/themes/saga-blue/theme.css';
@@ -26,6 +29,10 @@ const router = createBrowserRouter([
   {
     path: "/Borrow",
     element: <Borrow />,
+  },
+  {
+    path: "/Account",
+    element: <Account />
   }
 ]);
 

@@ -1,15 +1,26 @@
 
 import './App.css'
 import { useNavigate } from 'react-router-dom';
-
+import React, { useState, useEffect } from 'react'
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import { Items } from './JavaScript/Items';        
         
 
 function App() {
+
+  const [Items, setItems] = useState([]);
+
+  useEffect(() => {
+      Items.getItems().then(data => setItems(data));
+  }, []);
+
 
   const navigate = useNavigate();
   const handleHomeClick = () => navigate('/');
   const handleBorrowClick = () => navigate('/Borrow');
   const handleReturnClick = () => navigate('/Return');
+  const handleAccountClick = () => navigate('/Account');
 
   return (
     <>
@@ -23,23 +34,29 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
     <aside>
           <div className="aside">
             <div className="sidebar">
-              <div className="pfp">
-                <h1>User!</h1>
+              <div className="pfp" onClick={handleAccountClick}>
+                <span id='icon' class="icon material-symbols-outlined">
+              edit
+              </span> 
+              <div className="username">
+              <h1>User!</h1>    
               </div>
+              </div>
+             
             <a onClick={handleHomeClick}>
-              <span className="material-symbols-outlined" onClick={handleHomeClick}>
+              <span className="material-symbols-outlined" >
                 home
               </span>
               <h2>Dashboard</h2>
             </a>
             <a onClick={handleBorrowClick}>
-              <span className="material-symbols-outlined" onClick={handleBorrowClick}>
+              <span className="material-symbols-outlined">
                 book
               </span>
               <h2>Borrow</h2>
             </a>
             <a onClick={handleReturnClick} >
-              <span className="material-symbols-outlined" onClick={handleReturnClick}>
+              <span className="material-symbols-outlined" >
                 keyboard_return
               </span>
               <h2>Return</h2>
@@ -65,7 +82,12 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
             
             <div className="lower">
                  <div className="table">
-
+                 <DataTable value={Items} tableStyle={{ minWidth: '50rem' }}>
+                <Column field="code" header="Code"></Column>
+                <Column field="name" header="Name"></Column>
+                <Column field="category" header="Category"></Column>
+                <Column field="quantity" header="Quantity"></Column>
+            </DataTable>
                  </div>
             </div>
             

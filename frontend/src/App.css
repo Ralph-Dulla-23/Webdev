@@ -30,6 +30,7 @@ body{
   margin: 0 auto;
   display: flex;
   box-shadow: 0 0px 2rem 3rem rgba(132, 139, 200, 0.18) ;
+  background-color: white;
 }
 
 
@@ -46,13 +47,37 @@ body{
   background-color: #e96d83;
   border-radius: 50%;
   margin: 30px auto;
-  margin-bottom: 160px;
 }
 
+.pfp #icon{
+  font-size: 40px;
+  margin-left: 55px;
+  margin-top: 55px;
+}
+
+.pfp h1{
+  font-family: 'Poppins', sans-serif;
+  font-size: 30px;
+  
+}
 .pfp h1{
   margin: 170px 10px;
   font-size: 50px;
 }
+
+.username{
+  margin-top: -100px;
+}
+
+.pfp #icon{
+  opacity: 0;
+}
+
+.pfp #icon:hover{ 
+  opacity: 1;
+  transition: ease-in-out .3s;
+}
+
 
 a{
   color: black;
@@ -66,6 +91,8 @@ h2{
 .aside .material-symbols-outlined{
   font-size: 30px;
 }
+
+
 
 aside .sidebar{
   display: flex;
@@ -92,26 +119,28 @@ aside .sidebar a{
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
   padding: 20px;
+  cursor: pointer;
 } 
 
 aside .sidebar a:last-child{
   bottom: -10rem; 
 }
 
-aside .sidebar a.active{
+aside .sidebar a.focus{
   width: 100%;
   margin-left: 0;
   background-color: #e96d83;
 }
 
-aside .sidebar a.active::before{
+aside .sidebar a.focus::before{
   content: '';
   width: 6px;
   height: 18px;
   background-color: #e96d83;
+  
 }
 
-aside .sidebar a.active span{
+aside .sidebar a.focus span{
   background-color: #e96d83;
   margin-left: calc(1rem - 3px);
   transition: all 0.3s ease;;
@@ -132,7 +161,7 @@ aside .sidebar a:hover span{
 }
 
 .upper{
-  
+
 }
 
 .upper h1{
@@ -156,7 +185,8 @@ aside .sidebar a:hover span{
 
 .table{
   width: 100%;
-  height: 42em;
+  height: 32em;
   background-color: #e96d83;
   border-radius: 30px;
+  padding: 20px;
 }
