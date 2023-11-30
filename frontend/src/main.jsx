@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/client'
 
 import App from './App.jsx'
 import Return from './Pages/Return.jsx'
-import Borrow from './Pages/Borrow.jsx'
+import Borrow from './Pages/Borrow.tsx'
 import Account from './Pages/Account.jsx'
 
 import {createBrowserRouter,RouterProvider} from "react-router-dom";

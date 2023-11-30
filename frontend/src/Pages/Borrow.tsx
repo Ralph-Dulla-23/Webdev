@@ -1,19 +1,49 @@
 import { useNavigate } from 'react-router-dom';
 import { MultiSelect } from 'primereact/multiselect';
 import React, { useState } from 'react';    
-
-import { Button } from 'primereact/button';
-        
-import { Dropdown } from 'primereact/dropdown';
-          
+import { Button } from 'primereact/button';        
+import { Dropdown } from 'primereact/dropdown';     
 import { InputNumber } from 'primereact/inputnumber';
         
 
+interface InputValue {
+    name: string;
+    code: string;
+}
+
+
 function Return() {
   const [value1, setValue1] = useState(0);
-    
-  const [selectedItem, setSelectedItem] = useState(null);
-  const items = Array.from({ length: 100000 }).map((_, i) => ({ label: `Item #${i}`, value: i }));
+
+  const [multiselectValue, setMultiselectValue] = useState(null);
+  const multiselectValues: InputValue[] = [
+      { name: 'Audio Cord', code: 'AU' },
+      { name: 'Ext. Wire', code: 'BR' },
+      { name: 'HDMI Connector', code: 'CN' },
+      { name: 'Ipad Connector', code: 'EG' },
+      { name: 'HDMI Cord', code: 'FR' },
+      { name: 'karaoke', code: 'DE' },
+      { name: 'LCD', code: 'IN' },
+      { name: 'Microphone', code: 'JP' },
+      { name: 'Mic. Cord', code: 'ES' },
+      { name: 'Mic. Stand', code: 'US' },
+      { name: 'Pc', code: 'ES' },
+      { name: 'Type-C HDMI Connector', code: 'ES' },
+      { name: 'Portable CD/DVD player', code: 'ES' },
+      { name: 'Portable wirless amplifier ', code: 'ES' },
+      { name: 'PPT Presenter', code: 'ES' },
+      { name: 'AD', code: 'ES' },
+      { name: 'CD/ICD', code: 'ES' },
+      { name: 'Bluetooth Speaker', code: 'ES' },
+      { name: 'HC', code: 'ES' },
+      { name: 'KT', code: 'ES' },
+      { name: 'LC', code: 'ES' },
+      { name: 'PI', code: 'ES' },
+      { name: 'QG', code: 'ES' },
+      { name: 'Mac Con', code: 'ES' },
+      { name: 'VD', code: 'ES' },
+  ];
+
 
   const navigate = useNavigate();
   const handleHomeClick = () => navigate('/');
@@ -34,7 +64,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
           <div className="aside">
             <div className="sidebar">
               <div className="pfp" onClick={handleAccountClick}>
-                <span id='icon' class="icon material-symbols-outlined">
+                <span id='icon' className="icon material-symbols-outlined">
               edit
               </span> 
               <div className="username">
@@ -89,8 +119,16 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
                         <h2>Items Available</h2>
                         <div className="card flex justify-content-center">
                           
-                  <Dropdown value={selectedItem} onChange={(e) => setSelectedItem(e.value)} options={items} virtualScrollerOptions={{ itemSize: 38 }} 
-                      placeholder="Select Item" className="itemlist" />
+                        <MultiSelect
+                        value={multiselectValue}
+                        onChange={(e) => setMultiselectValue(e.value)}
+                        options={multiselectValues}
+                        optionLabel="name"
+                        placeholder="Select Items"
+                        filter
+                        className="multiselect-custom"
+                        display="chip"
+                    />
              </div>
                         
                     </div>
@@ -99,7 +137,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
                     </div>
                     <div className="card flex justify-content-center">
                     <div className="flex-auto">
-                       <InputNumber className='quantityitems' inputId="stacked-buttons" value={value1} onValueChange={(e) => setValue1(e.value)} showButtons mode="decimal" min={0} />
+                    <InputNumber inputId="stacked-buttons" value={value1} onValueChange={(e) => setValue1(e.value)} showButtons mode="decimal" currency="USD" min={0} />
                      </div>
                     </div>
                   </div>
