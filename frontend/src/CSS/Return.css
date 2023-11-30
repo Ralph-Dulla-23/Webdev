@@ -3,51 +3,7 @@
 
 
 
-*{
-  margin: 0;
-  padding: 0;
-  outline: 0;
-  appearance: 0;
-  border: 0;
-  text-decoration: none;
-  box-sizing: border-box;
-}
 
-body{
-    width: 100vw;
-    height: 100vh;
-    font-family: 'Poppins', sans-serif;
-    font-size: 0.88rem;
-    user-select: none;
-    overflow-x: hidden;
-}
-
-.WholeContent{
-  width: 1270px;
-  height: 100vh;
-  border-right: 1.5px solid #e96d83;
-  border-left: 1.5px solid #e96d83;
-  margin: 0 auto;
-  display: flex;
-  box-shadow: 0 0px 2rem 3rem rgba(132, 139, 200, 0.18) ;
-}
-
-
-.aside{
-  width: 300px;
-  height: 100vh;
-  border-right: 1.5px solid #e96d83;
-  box-shadow: 1px 2rem 0rem rgba(132, 139, 200, 0.18) ;
-}
-
-.pfp{
-  height: 150px;
-  width: 150px;
-  background-color: #e96d83;
-  border-radius: 50%;
-  margin: 30px auto;
-  margin-bottom: 160px;
-}
 
 
 

@@ -29,15 +29,15 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
     <aside>
           <div className="aside">
             <div className="sidebar">
-              <div className="pfp" onClick={handleAccountClick}>
-                <span id='icon' class="icon material-symbols-outlined">
+              <div className="pfp" >
+                <span id='icon' onClick={handleAccountClick} class="icon material-symbols-outlined">
               edit
               </span> 
               <div className="username">
-              <h1>User!</h1>    
+              <h1>Ralph Vincent Dulla</h1>    
               </div>
               </div>
-             
+             <div className="sidebuttons">
             <a onClick={handleHomeClick}>
               <span className="material-symbols-outlined" >
                 home
@@ -61,6 +61,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
               <h2>Logout</h2>
             </a>
             </div>
+            </div>
           </div>
         </aside>
         
@@ -70,8 +71,8 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
 
             <div className="upper">
               
-               <div className="logo">
-                </div>
+               <div className="logo" />
+               
                 <h1>Welcome to GearGuard!</h1> 
               </div>
             
@@ -84,7 +85,14 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
           </div>
       
 
-    </div>
+  
+    <footer>
+      <div className="footer-content">
+      <h3>GearGuard</h3>
+            <p>Praise be Jesus and Mary! Now and Forever!</p>
+            
+        </div>
+    </footer>  </div>
     </>
   )
 }

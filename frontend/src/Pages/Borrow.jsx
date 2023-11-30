@@ -42,6 +42,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
               </div>
               </div>
              
+              <div className="sidebuttons">
             <a onClick={handleHomeClick}>
               <span className="material-symbols-outlined" >
                 home
@@ -65,6 +66,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
               <h2>Logout</h2>
             </a>
             </div>
+            </div>
           </div>
         </aside>
         
@@ -86,6 +88,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
                   <div className="Items">
                         <h2>Items Available</h2>
                         <div className="card flex justify-content-center">
+                          
                   <Dropdown value={selectedItem} onChange={(e) => setSelectedItem(e.value)} options={items} virtualScrollerOptions={{ itemSize: 38 }} 
                       placeholder="Select Item" className="itemlist" />
              </div>
@@ -111,7 +114,13 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
             </div>
             
           </div>
-      
+          <footer>
+      <div className="footer-content">
+      <h3>GearGuard</h3>
+            <p>Praise be Jesus and Mary! Now and Forever!</p>
+            
+        </div>
+    </footer>
 
     </div>
     </>

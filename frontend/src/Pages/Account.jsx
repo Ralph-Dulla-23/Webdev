@@ -39,28 +39,30 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
           </div>
           </div>
          
-        <a onClick={handleHomeClick}>
-          <span className="material-symbols-outlined" >
-            home
-          </span>
-          <h2>Dashboard</h2>
-        </a>
-        <a onClick={handleBorrowClick}>
-          <span className="material-symbols-outlined">
-            book
-          </span>
-          <h2>Borrow</h2>
-        </a>
-        <a onClick={handleReturnClick} >
-          <span className="material-symbols-outlined" >
-            keyboard_return
-          </span>
-          <h2>Return</h2>
-        </a>
-        <a href="#">
-          <span className="material-symbols-outlined">logout</span>
-          <h2>Logout</h2>
-        </a>
+          <div className="sidebuttons">
+            <a onClick={handleHomeClick}>
+              <span className="material-symbols-outlined" >
+                home
+              </span>
+              <h2>Dashboard</h2>
+            </a>
+            <a onClick={handleBorrowClick}>
+              <span className="material-symbols-outlined">
+                book
+              </span>
+              <h2>Borrow</h2>
+            </a>
+            <a onClick={handleReturnClick} >
+              <span className="material-symbols-outlined" >
+                keyboard_return
+              </span>
+              <h2>Return</h2>
+            </a>
+            <a href="#">
+              <span className="material-symbols-outlined">logout</span>
+              <h2>Logout</h2>
+            </a>
+            </div>
         </div>
       </div>
     </aside>
@@ -78,7 +80,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
             <div className="lower">
                  <div className="table">
                     <div className="changeinfo">
-                        <div className="username">
+                        <div className="usernamechange">
                             <h2>Change your name</h2>
                         <span className="p-float-label">
                              <InputText id="username" name={name} onChange={(e) => setUsername(e.target.name)} />
@@ -99,7 +101,13 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
             </div>
             
           </div>
-      
+          <footer>
+      <div className="footer-content">
+      <h3>GearGuard</h3>
+            <p>Praise be Jesus and Mary! Now and Forever!</p>
+            
+        </div>
+    </footer>
 
     </div>
     </>
