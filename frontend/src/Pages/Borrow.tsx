@@ -119,14 +119,13 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
                         <h2>Items Available</h2>
                         <div className="card flex justify-content-center">
                           
-                        <MultiSelect
+                        <MultiSelect className='itemlist'
                         value={multiselectValue}
                         onChange={(e) => setMultiselectValue(e.value)}
                         options={multiselectValues}
                         optionLabel="name"
                         placeholder="Select Items"
                         filter
-                        className="multiselect-custom"
                         display="chip"
                     />
              </div>
@@ -137,7 +136,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
                     </div>
                     <div className="card flex justify-content-center">
                     <div className="flex-auto">
-                    <InputNumber inputId="stacked-buttons" value={value1} onValueChange={(e) => setValue1(e.value)} showButtons mode="decimal" currency="USD" min={0} />
+                    <InputNumber className='quantityitems' inputId="stacked-buttons" value={value1} onValueChange={(e) => setValue1(e.value)} showButtons mode="decimal" currency="USD" min={0} />
                      </div>
                     </div>
                   </div>
