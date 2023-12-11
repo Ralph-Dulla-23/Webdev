@@ -1,4 +1,4 @@
 rfcrcfrf
-const Table= () {
-    
+const Table= () => {
+ return <div className="Table-Container"> </div>
 }
