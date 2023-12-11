@@ -4,7 +4,9 @@ import React, { useState } from 'react';
 import { Button } from 'primereact/button';        
 import { Dropdown } from 'primereact/dropdown';     
 import { InputNumber } from 'primereact/inputnumber';
+import items from '../JSON/items.json';
         
+let itemsBar = items;
 
 interface InputValue {
     name: string;
@@ -16,33 +18,7 @@ function Return() {
   const [value1, setValue1] = useState(0);
 
   const [multiselectValue, setMultiselectValue] = useState(null);
-  const multiselectValues: InputValue[] = [
-      { name: 'Audio Cord', code: 'AU' },
-      { name: 'Ext. Wire', code: 'BR' },
-      { name: 'HDMI Connector', code: 'CN' },
-      { name: 'Ipad Connector', code: 'EG' },
-      { name: 'HDMI Cord', code: 'FR' },
-      { name: 'karaoke', code: 'DE' },
-      { name: 'LCD', code: 'IN' },
-      { name: 'Microphone', code: 'JP' },
-      { name: 'Mic. Cord', code: 'ES' },
-      { name: 'Mic. Stand', code: 'US' },
-      { name: 'Pc', code: 'ES' },
-      { name: 'Type-C HDMI Connector', code: 'ES' },
-      { name: 'Portable CD/DVD player', code: 'ES' },
-      { name: 'Portable wirless amplifier ', code: 'ES' },
-      { name: 'PPT Presenter', code: 'ES' },
-      { name: 'AD', code: 'ES' },
-      { name: 'CD/ICD', code: 'ES' },
-      { name: 'Bluetooth Speaker', code: 'ES' },
-      { name: 'HC', code: 'ES' },
-      { name: 'KT', code: 'ES' },
-      { name: 'LC', code: 'ES' },
-      { name: 'PI', code: 'ES' },
-      { name: 'QG', code: 'ES' },
-      { name: 'Mac Con', code: 'ES' },
-      { name: 'VD', code: 'ES' },
-  ];
+  const multiselectValues: InputValue[] = itemsBar;
 
 
   const navigate = useNavigate();
