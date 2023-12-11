@@ -533,7 +533,7 @@ h1 {
 
 
 .sidebuttons{
-  margin-top: 120px;
+  margin-top: 10px;
 }
 
 
@@ -555,11 +555,11 @@ a{
 
 h2{
   font-weight: 500;
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .aside .material-symbols-outlined{
-  font-size: 25px;
+  font-size: 20px;
 }
 
 aside .sidebar{
@@ -639,8 +639,8 @@ aside .sidebar a:hover span{
 }
 
 .table{
-  width: 74%;
-  height: 31em;
+  width: 74.3%;
+  height: 22.3em;
   background-color: #e96d83;
   border-radius: 30px;
   padding: 20px;
@@ -652,7 +652,7 @@ footer {
   left: 0;
   right: 0;
   background: #e96d83;
-  height: 50px;
+  height: 40px;
   width: 1024px; /* Use 100% width to extend across the entire viewport */
   font-family: "Open Sans";
   color: #fff;
