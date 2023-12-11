@@ -1,12 +1,12 @@
 
 import './App.css'
-import table from '../src/JSON/TableItems.json';
+import TableItems from '../src/JSON/TableItems.json';
 import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react'
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Items } from './JavaScript/Items';        
-import Test from '../src/Pages/table.jsx';
+import  {table} from "./Pages/table.jsx";
 
 
 function App() {
@@ -80,6 +80,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
             
             <div className="lower">
                  <div className="table" >
+                  {table}
                  </div>
             </div>
             

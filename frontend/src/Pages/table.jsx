@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import data from "../JSON/TableItems.json";
 import "../CSS/table.css";
 
-let tableFinal = Table;
 
-const Table= () => {
+
+ export const table= () => {
 
     const [Items, setItems] = useState(data);
 
@@ -34,4 +34,4 @@ const Table= () => {
  </table>
 
  </div>
-}
+};
