@@ -7,7 +7,9 @@ import { InputText } from 'primereact/inputtext';
 
 import React, { useState } from "react";
 
-        
+
+import { Button } from 'primereact/button';
+                
 
 function Account() {
     const [name, setUsername] = useState('');
@@ -95,7 +97,9 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
                             <Password id='password' inputId="password" style={{fontFamily:'Poppins'}} password={password} onChange={(e) => setPassword(e.target.password)} />
                              <label htmlFor="password">Password</label>
                         </span>
+
                         </div>
+                        <Button className='cbtn' label="Confirm" />
                     </div>
                  </div>
             </div>

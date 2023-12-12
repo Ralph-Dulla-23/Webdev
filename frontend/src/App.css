@@ -484,7 +484,7 @@ width: 1024px;
 }
 
 .upper{
-
+  position: relative;
 }
 
 .upper h1{
@@ -525,7 +525,7 @@ width: 1024px;
 
 h1 {
   font-family: 'Poppins', sans-serif;
-  font-size: 1.3rem; /* Adjust the font size as needed */
+  font-size: 1rem; /* Adjust the font size as needed */
   margin: 0; /* Remove the default margin */
   overflow: hidden; /* Prevent text overflow */
   text-overflow: ellipsis; /* Add ellipsis for long text */
@@ -533,7 +533,7 @@ h1 {
 
 
 .sidebuttons{
-  margin-top: 10px;
+  margin-top: 70px;
 }
 
 
@@ -575,7 +575,7 @@ aside .sidebar{
 aside .sidebar a{
   display: flex;
   align-items: center;
-  height: 4.7rem;
+  height: 3.2rem;
   gap: 1rem;
   position: relative;
   margin-left: 4rem;
@@ -626,6 +626,7 @@ aside .sidebar a:hover span{
 
 
 .logo{
+  position: relative;
   justify-content: space-around;
   margin-left: 580px;
   margin-top: 30px;
@@ -639,6 +640,7 @@ aside .sidebar a:hover span{
 }
 
 .table{
+  position: relative;
   width: 74.3%;
   height: 22.3em;
   background-color: #e96d83;
