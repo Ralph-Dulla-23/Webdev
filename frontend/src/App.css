@@ -51,7 +51,7 @@ body{
   height: 150px;
   width: 150px;
   margin: 0 auto;
-  background-image: url('./src/assets/pfp1.png');
+  background-image: url('./src/Pages/assets/pfp1.png');
   background-repeat: no-repeat;
   background-position: center center;
   position: relative;
@@ -190,7 +190,7 @@ aside .sidebar a:hover span{
   margin-left: 780px;
   margin-top: 30px;
   height: 150px;
-  background: url('src/assets/UIClogo.png') no-repeat;
+  background: url('src/Pages/assets/UIClogo.png') no-repeat;
 }
 
 .lower{
