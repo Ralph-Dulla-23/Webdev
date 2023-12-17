@@ -6,9 +6,11 @@ import App from './App.jsx'
 import Return from './Pages/Return.jsx'
 import Borrow from './Pages/Borrow.tsx'
 import Account from './Pages/Account.jsx'
+import Scan from './Pages/Scan.jsx'
 
 import {createBrowserRouter,RouterProvider} from "react-router-dom";
 
+import './CSS/Scan.css'
 import './CSS/Return.css'
 import './CSS/Account.css'
 import './CSS/Borrow.css'
@@ -33,6 +35,10 @@ const router = createBrowserRouter([
   {
     path: "/Account",
     element: <Account />
+  },
+  {
+    path: "/Scan",
+    element: <Scan />
   }
 ]);
 
