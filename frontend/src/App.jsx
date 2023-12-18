@@ -1,5 +1,5 @@
 
-import './CSS/App.css'
+import './App.css'
 import TableItems from '../src/JSON/TableItems.json';
 import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react'

@@ -51,7 +51,7 @@ body{
   height: 150px;
   width: 150px;
   margin: 0 auto;
-  background-image: url('assets/pfp1.png');
+  background-image: url('./Images/pfp1.png');
   background-repeat: no-repeat;
   background-position: center center;
   position: relative;
@@ -190,7 +190,7 @@ aside .sidebar a:hover span{
   margin-left: 780px;
   margin-top: 30px;
   height: 150px;
-  background: url('assets/UIClogo.png') no-repeat;
+  background: url('./Images/UIClogo.png') no-repeat;
 }
 
 .lower{
@@ -284,7 +284,7 @@ width: 100%;
   height: 150px;
   width: 150px;
   margin: 0 auto;
-  background-image: url('./src/assets/pfp1.png');
+  background-image: url('./Images/pfp1.png');
   background-repeat: no-repeat;
   background-position: center center;
   position: relative;
@@ -409,7 +409,7 @@ aside .sidebar a:hover span{
   margin-left: 780px;
   margin-top: 30px;
   height: 150px;
-  background: url('src/assets/UIClogo.png') no-repeat;
+  background: url('./Images/UIClogo.png') no-repeat;
 }
 
 .lower{
@@ -505,7 +505,7 @@ width: 1024px;
   height: 150px;
   width: 150px;
   margin: 0 auto;
-  background-image: url('./src/assets/pfp1.png');
+  background-image: url('./Images/pfp1.png');
   background-repeat: no-repeat;
   background-position: center center;
   position: relative;
@@ -631,7 +631,7 @@ aside .sidebar a:hover span{
   margin-left: 580px;
   margin-top: 30px;
   height: 150px;
-  background: url('src/assets/UIClogo.png') no-repeat;
+  background: url('./Images/UIClogo.png') no-repeat;
 }
 
 .lower{

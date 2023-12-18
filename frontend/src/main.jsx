@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom/client'
 
 
 import App from './App.jsx'
-import Return from './Pages/Return.jsx'
-import Borrow from './Pages/Borrow.tsx'
-import Account from './Pages/Account.jsx'
-import Scan from './Pages/Scan.jsx'
+import Return from './Pages/Return/Return.jsx'
+import Borrow from './Pages/Borrow/Borrow.tsx'
+import Account from './Pages/Account/Account.jsx'
+import Scan from './Pages/Scan/Scan.jsx'
 
 import {createBrowserRouter,RouterProvider} from "react-router-dom";
 

@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Button } from 'primereact/button';        
 import { Dropdown } from 'primereact/dropdown';     
 import { InputNumber } from 'primereact/inputnumber';
-import items from '../JSON/items.json';
+import items from '../../JSON/items.json';
         
 let itemsBar = items;
 
