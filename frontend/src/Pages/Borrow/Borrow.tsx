@@ -9,23 +9,32 @@ import items from '../../JSON/items.json';
 let itemsBar = items;
 
 interface InputValue {
-    name: string;
-    code: string;
+  name: string;
+  code: string;
+  status: string;
+  itemId: string;
 }
 
 
 function Return() {
-  const [value1, setValue1] = useState(0);
+  const [value1, setValue1] = useState();
 
   const [multiselectValue, setMultiselectValue] = useState(null);
   const multiselectValues: InputValue[] = itemsBar;
 
-
+ 
   const navigate = useNavigate();
   const handleHomeClick = () => navigate('/');
   const handleBorrowClick = () => navigate('/Borrow');
   const handleReturnClick = () => navigate('/Return');
   const handleAccountClick = () => navigate('/Account');
+
+  const handleBorrowBtn = () => {
+    multiselectValues.forEach((selectedItem: InputValue) => {
+      const { name, code, status, itemId } = selectedItem;
+      console.log(`Borrowing ${name} (Code: ${code}, Status: ${status}, Item ID: ${itemId})`);
+    });
+  };
 
   return (
     <>
@@ -95,14 +104,19 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
                         <h2>Items Available</h2>
                         <div className="card flex justify-content-center">
                           
-                        <MultiSelect className='itemlist'
-                        value={multiselectValue}
-                        onChange={(e) => setMultiselectValue(e.value)}
-                        options={multiselectValues}
-                        optionLabel="name"
-                        placeholder="Select Items"
-                        filter
-                        display="chip"
+                        <MultiSelect
+                           className='itemlist'
+                            value={multiselectValue}
+                              onChange={(e) => setMultiselectValue(e.value)}
+                               options={multiselectValues}
+                                 optionLabel="name" // Displayed in the input field
+                              itemTemplate={(option: InputValue) => (
+                           <div>
+                              <div>{option.name}</div>
+                              <div>Status: {option.status}</div>
+                              <div>Item ID: {option.itemId}</div>
+                              </div>
+                          )}  
                     />
              </div>
                         
@@ -118,8 +132,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
                   </div>
                   <div className="lowertable">
                     <div className="borrowbtn">
-                    <Button className='btn' label="Borrow Items" />
-                      
+                    <Button className='btn' label="Borrow Items" onClick={handleBorrowBtn} />
                     </div>
                   </div>
                   </div>
