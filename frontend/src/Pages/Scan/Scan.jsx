@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';    
-
+import { Button } from 'primereact/button';  
 import { InputNumber } from 'primereact/inputnumber';
         
 
@@ -74,6 +74,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
             <h4>Hello Please Input ID First</h4>
             
                 <InputNumber className='inputID' placeholder="Input ID" id="number-input" value={value} onValueChange={(e) => setValue(e.value)} />
+                <Button className='tn' label="Confirm" />
         </div>
          
           <footer>

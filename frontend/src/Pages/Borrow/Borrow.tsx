@@ -35,6 +35,9 @@ function Return() {
       const { name, code, status, itemId } = selectedItem;
       console.log(`Borrowing ${name} (Code: ${code}, Status: ${status}, Item ID: ${itemId})`);
     });
+
+    // Redirect to the Scan page after borrowing items
+    handleScanClick();
   };
 
   return (

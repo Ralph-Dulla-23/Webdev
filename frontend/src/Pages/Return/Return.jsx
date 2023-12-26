@@ -20,6 +20,7 @@ function Return() {
   const handleBorrowClick = () => navigate('/Borrow');
   const handleReturnClick = () => navigate('/Return');
   const handleAccountClick = () => navigate('/Account');
+  const handleScanClick = () => navigate('/Scan');
 
   return (
     <>
@@ -103,7 +104,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
                   </div>
                   <div className="lowertable">
                     <div className="borrowbtn">
-                    <Button className='btn' label="Borrow Items" />
+                    <Button className='btn' label="Borrow Items" onClick={handleScanClick}/>
                       
                     </div>
                   </div>
