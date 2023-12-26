@@ -7,6 +7,7 @@ import Return from './Pages/Return/Return.jsx'
 import Borrow from './Pages/Borrow/Borrow.tsx'
 import Account from './Pages/Account/Account.jsx'
 import Scan from './Pages/Scan/Scan.jsx'
+import ScanR from './Pages/Scan/ScanR.jsx'
 
 import {createBrowserRouter,RouterProvider} from "react-router-dom";
 
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
   {
     path: "/Scan",
     element: <Scan />
+  },
+  {
+    path: "/ScanR",
+    element: <ScanR />
   }
 ]);
 

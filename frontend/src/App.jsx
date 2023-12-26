@@ -23,6 +23,9 @@ function App() {
   const handleBorrowClick = () => navigate('/Borrow');
   const handleReturnClick = () => navigate('/Return');
   const handleAccountClick = () => navigate('/Account');
+  const handleScanClick = () => navigate('/Scan');
+  const handleScanRClick = () => navigate('/ScanR');
+
 
   return (
     <>
@@ -41,7 +44,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
               edit
               </span> 
               <div className="username">
-              <h1>Ralph Vincent Dulla</h1>    
+              <h1>Hillbert Tan</h1>    
               </div>
               </div>
              <div className="sidebuttons">
@@ -57,7 +60,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
               </span>
               <h2>Borrow</h2>
             </a>
-            <a onClick={handleReturnClick} >
+            <a onClick={handleScanRClick} >
               <span className="material-symbols-outlined" >
                 keyboard_return
               </span>
@@ -83,20 +86,22 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
                 <h1>Welcome to GearGuard!</h1> 
               </div>
             
-            <div className="lower">
-                 <div className="table" >
-                 <div className="card">
-                   <DataTable value={products} scrollable scrollHeight="400px" tableStyle={{ minWidth: '50rem' }}>
-                      <Column field="ItemId" header="ID"></Column>
-                      <Column field="ItemName" header="Item"></Column>
-                      <Column field="Status" header="Status"></Column>
-                      <Column field="DateBorrowed" header="Date Borrowed"></Column>
-                      <Column field="ReturnDate" header="Return Date"></Column>
-                   </DataTable>
-        </div>
-                  
-                 </div>
-            </div>
+              
+              <div className="lower">
+  <div className="table">
+    <div className="card custom-datatable">
+      <DataTable value={products}  scrollable scrollHeight="400px" tableStyle={{ minWidth: '50rem' }}>
+        <Column headerClassName='custom-header' className='itemid' field="ItemId" header="ID"></Column>
+        <Column headerClassName='custom-header' field="ItemName" header="Item"></Column>
+        <Column headerClassName='custom-header' field="Status" header="Status"></Column>
+        <Column headerClassName='custom-header' field="DateBorrowed" header="Date Borrowed"></Column>
+        <Column headerClassName='custom-header' field="ReturnDate" header="Return Date"></Column>
+      </DataTable>
+    </div>
+  </div>
+</div>
+
+
             
           </div>
       

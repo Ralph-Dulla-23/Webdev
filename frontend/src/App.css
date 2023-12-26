@@ -206,6 +206,30 @@ aside .sidebar a:hover span{
   padding: 20px;
 }
 
+
+.custom-datatable .p-datatable-thead th,
+.custom-datatable .p-datatable-tbody td {
+  font-size: 20px; 
+}
+
+/* Add this CSS to define a custom header style */
+.custom-header {
+  background: pink;
+}
+
+
+
+
+/* Add this CSS to round the corners of the DataTable */
+.custom-datatable {
+  border-radius: 10px; /* Adjust the radius as needed */
+}
+
+
+.itemid{
+  font-size: 20px;
+}
+
 footer {
   position: absolute;
   bottom: 0;
@@ -647,6 +671,16 @@ aside .sidebar a:hover span{
   border-radius: 30px;
   padding: 20px;
 }
+
+.custom-datatable .p-datatable-thead th,
+.custom-datatable .p-datatable-tbody td {
+  font-size: 15px; 
+}
+
+.custom-datatable{
+  width: 100%;
+}
+
 
 footer {
   position: absolute;

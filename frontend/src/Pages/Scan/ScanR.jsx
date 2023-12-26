@@ -18,7 +18,6 @@ function Scan() {
   const handleReturnClick = () => navigate('/Return');
   const handleAccountClick = () => navigate('/Account');
   const handleScanClick = () => navigate('/Scan');
-  const handleScanRClick = () => navigate('/ScanR');
 
   return (
     <>
@@ -54,7 +53,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
               </span>
               <h2>Borrow</h2>
             </a>
-            <a onClick={handleScanRClick} >
+            <a onClick={handleScanClick} >
               <span className="material-symbols-outlined" >
                 keyboard_return
               </span>
@@ -76,7 +75,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
             <h4>Hello Please Input ID First</h4>
             
                 <InputNumber className='inputID' placeholder="Input ID" id="number-input" value={value} onValueChange={(e) => setValue(e.value)} />
-                <Button className='tn' label="Confirm" onClick={handleHomeClick}/>
+                <Button className='tn' label="Confirm" onClick={handleReturnClick}/>
         </div>
          
           <footer>

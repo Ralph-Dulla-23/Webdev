@@ -1,26 +1,35 @@
 import { useNavigate } from 'react-router-dom';
 import { MultiSelect } from 'primereact/multiselect';
 import React, { useState } from 'react';    
-
+import { Message } from 'primereact/message';
 import { Button } from 'primereact/button';
-        
 import { Dropdown } from 'primereact/dropdown';
-          
 import { InputNumber } from 'primereact/inputnumber';
 
 function Return() {
-
   const [value1, setValue1] = useState(0);
-    
   const [selectedItem, setSelectedItem] = useState(null);
   const items = Array.from({ length: 100000 }).map((_, i) => ({ label: `Item #${i}`, value: i }));
+  const [message, setMessage] = useState(null);
 
   const navigate = useNavigate();
+
   const handleHomeClick = () => navigate('/');
   const handleBorrowClick = () => navigate('/Borrow');
-  const handleReturnClick = () => navigate('/Return');
+  const handleReturnClick = () => {
+    if (selectedItem && value1) {
+      // Perform any additional logic if needed
+      console.log('Item borrowed:', selectedItem, 'Quantity:', value1);
+      // Navigate to the Return page
+      navigate('/Return');
+    } else {
+      // Show a validation message
+      setMessage({ severity: 'error', summary: 'Validation Error', detail: 'Please fill in all required fields!' });
+    }
+  };
   const handleAccountClick = () => navigate('/Account');
-  const handleScanClick = () => navigate('/Scan');
+  const handleScanRClick = () => navigate('/ScanR');
+
 
   return (
     <>
@@ -56,7 +65,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
               </span>
               <h2>Borrow</h2>
             </a>
-            <a onClick={handleReturnClick} >
+            <a onClick={handleScanRClick} >
               <span className="material-symbols-outlined" >
                 keyboard_return
               </span>
@@ -104,7 +113,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
                   </div>
                   <div className="lowertable">
                     <div className="borrowbtn">
-                    <Button className='btn' label="Borrow Items" onClick={handleScanClick}/>
+                    <Button className='btn' label="Borrow Items" onClick={handleHomeClick}/>
                       
                     </div>
                   </div>

@@ -19,6 +19,8 @@ function Account() {
   const handleBorrowClick = () => navigate('/Borrow');
   const handleReturnClick = () => navigate('/Return');
   const handleAccountClick = () => navigate('/Account');
+  const handleScanClick = () => navigate('/Scan');
+  const handleScanRClick = () => navigate('/ScanR');
 
   return (
     <>
@@ -54,7 +56,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
               </span>
               <h2>Borrow</h2>
             </a>
-            <a onClick={handleReturnClick} >
+            <a onClick={handleScanRClick} >
               <span className="material-symbols-outlined" >
                 keyboard_return
               </span>
