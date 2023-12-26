@@ -1,12 +1,20 @@
 .scan{
-  
+    display: flex;
+     flex-direction: column;
     margin: auto auto;
 }
 
 #logoscan {
+    margin: auto 2.5em;
     font-size: 100px;
     color: #e96d83;
 }
 .scan h4{
-    font-size: 100px;
+    font-size: 50px;
+    align-items: center;
+}
+
+.inputID{
+    align-items: center;
+    text-align: center;
 }

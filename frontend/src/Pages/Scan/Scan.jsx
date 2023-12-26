@@ -1,9 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';    
 
+import { InputNumber } from 'primereact/inputnumber';
+        
 
 function Scan() {
 
+  const [value, setValue] = useState();
   const [value1, setValue1] = useState(0);
     
   const [selectedItem, setSelectedItem] = useState(null);
@@ -68,7 +71,9 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
             <span id='logoscan' class="material-symbols-outlined">
                 gpp_maybe
             </span>
-            <h4>Hello Please Scan First</h4>
+            <h4>Hello Please Input ID First</h4>
+            
+                <InputNumber className='inputID' placeholder="Input ID" id="number-input" value={value} onValueChange={(e) => setValue(e.value)} />
         </div>
          
           <footer>
