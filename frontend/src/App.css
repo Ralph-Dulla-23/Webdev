@@ -79,7 +79,7 @@ h1 {
 
 
 .sidebuttons{
-  margin-top: 150px;
+  margin-top: 130px;
 }
 
 
@@ -106,7 +106,7 @@ h2{
 }
 
 .aside .material-symbols-outlined{
-  font-size: 30px;
+  font-size: 25px;
 }
 
 aside .sidebar{
@@ -122,7 +122,7 @@ aside .sidebar{
 aside .sidebar a{
   display: flex;
   align-items: center;
-  height: 5.7rem;
+  height: 4.7rem;
   gap: 1rem;
   position: relative;
   margin-left: 4rem;
@@ -131,14 +131,14 @@ aside .sidebar a{
   border-top: #e96d83 1px solid;
   border-bottom: #e96d83 1px solid;
   margin: 3px 0 0 2rem;
-  border-top-left-radius: 30px;
-  border-bottom-left-radius: 30px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
   padding: 20px;
   cursor: pointer;
 } 
 
 aside .sidebar a:last-child{
-  bottom: -5rem; 
+  bottom: -2rem; 
 }
 
 aside .sidebar a.focus{

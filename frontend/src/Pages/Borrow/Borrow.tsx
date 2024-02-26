@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import { MultiSelect } from 'primereact/multiselect';
-import React, { useState } from 'react';    
+import React, { useState, useRef } from 'react';    
 import { Button } from 'primereact/button';        
-import { Dropdown } from 'primereact/dropdown';     
 import { InputNumber } from 'primereact/inputnumber';
 import items from '../../JSON/items.json';
-        
+import { Toast } from 'primereact/toast';
+
 let itemsBar = items;
 
 interface InputValue {
@@ -15,14 +15,10 @@ interface InputValue {
   itemId: string;
 }
 
-
 function Return() {
   const [value1, setValue1] = useState();
-
   const [multiselectValue, setMultiselectValue] = useState(null);
   const multiselectValues: InputValue[] = itemsBar;
-
- 
   const navigate = useNavigate();
   const handleHomeClick = () => navigate('/');
   const handleBorrowClick = () => navigate('/Borrow');
@@ -30,6 +26,11 @@ function Return() {
   const handleAccountClick = () => navigate('/Account');
   const handleScanClick = () => navigate('/Scan');
   const handleScanRClick = () => navigate('/ScanR');
+  const toast = useRef(null);
+
+  const show = () => {
+    toast.current.show({ severity: 'info', summary: 'Info', detail: 'Message Content' });
+  };
 
   const handleBorrowBtn = () => {
     multiselectValues.forEach((selectedItem: InputValue) => {
@@ -37,9 +38,15 @@ function Return() {
       console.log(`Borrowing ${name} (Code: ${code}, Status: ${status}, Item ID: ${itemId})`);
     });
 
+    // Show the toast message
+    if (toast.current) {
+      toast.current.show({ severity: 'success', summary: 'Success', detail: 'Items borrowed successfully', life: 3000 });
+    }
+
     // Redirect to the Scan page after borrowing items
     handleScanClick();
   };
+
 
   return (
     <>
@@ -53,16 +60,15 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
     <aside>
           <div className="aside">
             <div className="sidebar">
-              <div className="pfp" onClick={handleAccountClick}>
-                <span id='icon' className="icon material-symbols-outlined">
+              <div className="pfp" >
+                <span id='icon' onClick={handleAccountClick} className="icon material-symbols-outlined">
               edit
               </span> 
               <div className="username">
-              <h1>User!</h1>    
+              <h1>Hillbert Tan</h1>    
               </div>
               </div>
-             
-              <div className="sidebuttons">
+             <div className="sidebuttons">
             <a onClick={handleHomeClick}>
               <span className="material-symbols-outlined" >
                 home
@@ -81,6 +87,18 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
               </span>
               <h2>Return</h2>
             </a>
+            <a onClick={handleHomeClick}>
+              <span className="material-symbols-outlined" >
+                update
+              </span>
+              <h2>Update Items</h2>
+            </a>
+            <a onClick={handleHomeClick}>
+              <span className="material-symbols-outlined" >
+                Request_page
+              </span>
+              <h2>Request</h2>
+            </a>
             <a href="#">
               <span className="material-symbols-outlined">logout</span>
               <h2>Logout</h2>
@@ -98,7 +116,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
               
                <div className="logo">
                 </div>
-                <h1>Welcome to the Borrow Screen!</h1> 
+                <h1>Borrow Screen</h1> 
               </div>
             
             <div className="lower">
@@ -110,6 +128,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
                         <div className="card flex justify-content-center">
                           
                         <MultiSelect
+                        maxSelectedLabels={5}
                            className='itemlist'
                             value={multiselectValue}
                               onChange={(e) => setMultiselectValue(e.value)}
@@ -127,7 +146,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
                         
                     </div>
                     <div className="quantity">
-                      <h2>Quantity:</h2>
+                      <h2>Quantity</h2>
                     </div>
                     <div className="card flex justify-content-center">
                     <div className="flex-auto">
@@ -137,7 +156,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
                   </div>
                   <div className="lowertable">
                     <div className="borrowbtn">
-                    <Button className='btn' label="Borrow Items" onClick={handleBorrowBtn} />
+                    <Button className='btn' label="Borrow" onClick={handleBorrowBtn}  />
                     </div>
                   </div>
                   </div>
@@ -154,6 +173,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
     </footer>
 
     </div>
+    <Toast ref={toast} />
     </>
   )
 }

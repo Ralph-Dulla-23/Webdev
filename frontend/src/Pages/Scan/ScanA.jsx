@@ -1,22 +1,16 @@
-
-import './App.css'
-import TableItems from '../src/JSON/TableItems.json';
 import { useNavigate } from 'react-router-dom';
-import React, { useState, useEffect } from 'react'
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { ForTableJSON } from './JSON/ForTableJSON.jsx';
-import { Items } from './JavaScript/Items';        
-import  {table} from "./Pages/table.jsx";
+import React, { useState } from 'react';    
+import { Button } from 'primereact/button';  
+import { InputNumber } from 'primereact/inputnumber';
+        
 
+function Scan() {
 
-function App() {
-
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    ForTableJSON.getProductsMini().then(data => setProducts(data));
-  }, []);
+  const [value, setValue] = useState();
+  const [value1, setValue1] = useState(0);
+    
+  const [selectedItem, setSelectedItem] = useState(null);
+  const items = Array.from({ length: 100000 }).map((_, i) => ({ label: `Item #${i}`, value: i }));
 
   const navigate = useNavigate();
   const handleHomeClick = () => navigate('/');
@@ -24,12 +18,6 @@ function App() {
   const handleReturnClick = () => navigate('/Return');
   const handleAccountClick = () => navigate('/Account');
   const handleScanClick = () => navigate('/Scan');
-  const handleScanRClick = () => navigate('/ScanR');
-  const handleAddClick = () => navigate('/Add');
-  const handleRemoveClick = () => navigate('/Remove');
-  const handleUpdateItemClick = () => navigate('/Update-Item');
-  const handleUpdateItemsClick = () => navigate('/Update-Items');
-
 
   return (
     <>
@@ -70,7 +58,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
               </span>
               <h2>Return</h2>
             </a>
-            <a onClick={handleUpdateItemsClick}>
+            <a onClick={handleHomeClick}>
               <span className="material-symbols-outlined" >
                 update
               </span>
@@ -91,48 +79,27 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
           </div>
         </aside>
         
-
-       
-          <div className="content">
-
-            <div className="upper">
-              
-               <div className="logo" />
-               
-                <h1>Welcome to GearGuard!</h1> 
-              </div>
+        <div className="scan">
+            <span id='logoscan' class="material-symbols-outlined">
+                gpp_maybe
+            </span>
+            <h4>Hello Please Input ID First</h4>
             
-              
-              <div className="lower">
-  <div className="table">
-    <div className="card custom-datatable">
-      <DataTable value={products}  scrollable scrollHeight="400px" tableStyle={{ minWidth: '50rem' }}>
-        <Column headerClassName='custom-header' className='itemid' field="ItemId" header="ID"></Column>
-        <Column headerClassName='custom-header' field="ItemName" header="Item"></Column>
-        <Column headerClassName='custom-header' field="Status" header="Status"></Column>
-        <Column headerClassName='custom-header' field="DateBorrowed" header="Date Borrowed"></Column>
-        <Column headerClassName='custom-header' field="ReturnDate" header="Return Date"></Column>
-      </DataTable>
-    </div>
-  </div>
-</div>
-
-
-            
-          </div>
-      
-
-  
-    <footer>
+                <InputNumber className='inputID' placeholder="Input ID" id="number-input" value={value} onValueChange={(e) => setValue(e.value)} />
+                <Button className='tn' label="Confirm" onClick={handleReturnClick}/>
+        </div>
+         
+          <footer>
       <div className="footer-content">
       <h3>GearGuard</h3>
             <p>Praise be Jesus and Mary! Now and Forever!</p>
             
         </div>
-    </footer>  </div>
+    </footer>
 
+    </div>
     </>
   )
 }
 
-export default App
+export default Scan

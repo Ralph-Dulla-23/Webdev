@@ -5,12 +5,22 @@ import { Message } from 'primereact/message';
 import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
 import { InputNumber } from 'primereact/inputnumber';
+import { useRef } from 'react';
+import { Toast } from 'primereact/toast';
+        
+
 
 function Return() {
   const [value1, setValue1] = useState(0);
   const [selectedItem, setSelectedItem] = useState(null);
   const items = Array.from({ length: 100000 }).map((_, i) => ({ label: `Item #${i}`, value: i }));
   const [message, setMessage] = useState(null);
+
+  const toast = useRef(null);
+
+  const showSuccess = () => {
+      toast.current.show({severity:'success', summary: 'Success', detail:'Message Content', life: 3000});
+  }
 
   const navigate = useNavigate();
 
@@ -22,6 +32,7 @@ function Return() {
       console.log('Item borrowed:', selectedItem, 'Quantity:', value1);
       // Navigate to the Return page
       navigate('/Return');
+      toast.current.show({severity:'success', summary: 'Success', detail:'Message Content', life: 3000});
     } else {
       // Show a validation message
       setMessage({ severity: 'error', summary: 'Validation Error', detail: 'Please fill in all required fields!' });
@@ -43,16 +54,15 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
     <aside>
           <div className="aside">
             <div className="sidebar">
-              <div className="pfp" onClick={handleAccountClick}>
-                <span id='icon' class="icon material-symbols-outlined">
+              <div className="pfp" >
+                <span id='icon' onClick={handleAccountClick} class="icon material-symbols-outlined">
               edit
               </span> 
               <div className="username">
-              <h1>User!</h1>    
+              <h1>Hillbert Tan</h1>    
               </div>
               </div>
-             
-              <div className="sidebuttons">
+             <div className="sidebuttons">
             <a onClick={handleHomeClick}>
               <span className="material-symbols-outlined" >
                 home
@@ -65,11 +75,23 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
               </span>
               <h2>Borrow</h2>
             </a>
-            <a onClick={handleScanRClick} >
+            <a onClick={handleReturnClick} >
               <span className="material-symbols-outlined" >
                 keyboard_return
               </span>
               <h2>Return</h2>
+            </a>
+            <a onClick={handleHomeClick}>
+              <span className="material-symbols-outlined" >
+                update
+              </span>
+              <h2>Update Items</h2>
+            </a>
+            <a onClick={handleHomeClick}>
+              <span className="material-symbols-outlined" >
+                Request_page
+              </span>
+              <h2>Request</h2>
             </a>
             <a href="#">
               <span className="material-symbols-outlined">logout</span>
@@ -87,7 +109,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
               
                <div className="logo">
                 </div>
-                <h1>Welcome to the Return Screen!</h1> 
+                <h1>Return Screen</h1> 
               </div>
             
             <div className="lower">
@@ -113,7 +135,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
                   </div>
                   <div className="lowertable">
                     <div className="borrowbtn">
-                    <Button className='btn' label="Borrow Items" onClick={handleHomeClick}/>
+                    <Button className='rbtn' label="Return" onClick={handleHomeClick} />
                       
                     </div>
                   </div>

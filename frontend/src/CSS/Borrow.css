@@ -1,6 +1,7 @@
 .borrow{
     display: flex;
     flex-direction: column;
+    text-align: center;
     gap:20px;
 }
 
@@ -8,19 +9,15 @@
     gap: 20px;
 }
 
-.uppertable{
-    border-radius: 20px;
-    height: 300px;
-    width: 100%;
-    background-color: rgb(255, 255, 255);
-    padding: 10px;
-    justify-content: center;
-   
-}
 
 .Items h2{
+    margin-top: 30px;
     font-size: 50px;
     margin-bottom: 10px;
+}
+
+.Items{
+    margin: 30px;
 }
 
 .itemlist{
@@ -28,9 +25,10 @@
     width: 60%;
     height: 50px;
     padding: 10px;
-    border: solid 1px black;
+    border: solid 1px rgb(255, 255, 255);
     gap: 10px;
     border-radius: 10px;
+    overflow-block: scroll;
 }
 
 .quantity h2{
@@ -43,27 +41,19 @@
     width: 60%;
     height: 50px;
     padding: 10px;
-    border: solid 1px black;
+    border: solid 1px rgb(255, 255, 255);
     gap: 10px;
     border-radius: 10px;
 }
 
-.lowertable{
-    border-radius: 20px;
-    height: 90px;
-    width: 50%;
-    border: 1px white solid;
-    padding: 10px;
-    margin: 10px auto;
-    
-}
-
 .btn{
+    margin-top: 30px;
     height: 100%;
-    width: 100%;
+    width: 30%;
     font-size: 50px;
     background-color: #e96d83;
     border-radius: 20px;
+    border: 2px solid aliceblue;
 }
 
 @media only screen and (max-width: 1366px) {
@@ -73,15 +63,7 @@
     gap:20px;
 }
 
-.uppertable{
-    border-radius: 20px;
-    height: 300px;
-    width: 100%;
-    background-color: rgb(255, 255, 255);
-    padding: 10px;
-    justify-content: center;
-    
-}
+
 
 .Items h2{
     font-size: 50px;
@@ -113,15 +95,6 @@
     border-radius: 10px;
 }
 
-.lowertable{
-    border-radius: 10px;
-    height: 10%;
-    width: 50%;
-    border: 1px white solid;
-    padding: 10px;
-    margin: 10px auto;
-    
-}
 
 .btn{
     height: 10%;
