@@ -38,8 +38,18 @@ function Return() {
       setMessage({ severity: 'error', summary: 'Validation Error', detail: 'Please fill in all required fields!' });
     }
   };
+  
   const handleAccountClick = () => navigate('/Account');
+  const handleScanClick = () => navigate('/Scan');
   const handleScanRClick = () => navigate('/ScanR');
+  const handleAddClick = () => navigate('/Add');
+  const handleRemoveClick = () => navigate('/Remove');
+  const handleUpdateItemClick = () => navigate('/Update-Item');
+  const handleUpdateItemsClick = () => navigate('/Update-Items');
+  const hanldeRequestUserClick = () => navigate('/Request-User');
+  const hanldeRequestAdminClick = () => navigate('/Request-Admin');
+  const handleRequestClick = () => navigate('/Request');
+
 
 
   return (
@@ -75,19 +85,19 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
               </span>
               <h2>Borrow</h2>
             </a>
-            <a onClick={handleReturnClick} >
+            <a onClick={handleScanRClick} >
               <span className="material-symbols-outlined" >
                 keyboard_return
               </span>
               <h2>Return</h2>
             </a>
-            <a onClick={handleHomeClick}>
+            <a onClick={handleUpdateItemsClick}>
               <span className="material-symbols-outlined" >
                 update
               </span>
               <h2>Update Items</h2>
             </a>
-            <a onClick={handleHomeClick}>
+            <a onClick={handleRequestClick}>
               <span className="material-symbols-outlined" >
                 Request_page
               </span>
@@ -101,6 +111,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
             </div>
           </div>
         </aside>
+        
         
        
           <div className="content">

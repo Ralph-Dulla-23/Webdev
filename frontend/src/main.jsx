@@ -15,6 +15,7 @@ import UpdateItem from './Pages/UpdateItems/UpdateItem.jsx'
 import UpdateItems from './Pages/UpdateItems/UpdateItems.jsx'
 import RequestUser from './Pages/Request/RequestUser.jsx'
 import RequestAdmin from './Pages/Request/RequestAdmin.jsx'
+import Request from './Pages/Request/Request.jsx'
 
 
 import {createBrowserRouter,RouterProvider} from "react-router-dom";
@@ -29,6 +30,7 @@ import './CSS/UpdateItem.css'
 import './CSS/UpdateItems.css'
 import './CSS/RequestAdmin.css'
 import './CSS/RequestUser.css'
+
 import './index.css'
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
@@ -87,6 +89,11 @@ const router = createBrowserRouter([
     path: "/Request-Admin",
     element: <RequestAdmin />
   },
+  {
+    path: "/Request",
+    element: <Request />
+  },
+
 
 ]);
 

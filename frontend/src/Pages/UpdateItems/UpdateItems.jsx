@@ -24,7 +24,11 @@ function UpdateItems() {
   const handleScanRClick = () => navigate('/ScanR');
   const handleAddClick = () => navigate('/Add');
   const handleRemoveClick = () => navigate('/Remove');
-  const handleUpdateItemClick = () => navigate('/UpdateItem');
+  const handleUpdateItemClick = () => navigate('/Update-Item');
+  const handleUpdateItemsClick = () => navigate('/Update-Items');
+  const hanldeRequestUserClick = () => navigate('/Request-User');
+  const hanldeRequestAdminClick = () => navigate('/Request-Admin');
+  const handleRequestClick = () => navigate('/Request');
 
 
 
@@ -35,21 +39,20 @@ function UpdateItems() {
 s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
 ,100..700,0..1,-50..200" />
 
-<div className="WholeContent">
+    <div className="WholeContent">
 
-<aside>
-      <div className="aside">
-        <div className="sidebar">
-          <div className="pfp" onClick={handleAccountClick}>
-            <span id='icon' class="icon material-symbols-outlined">
-          edit
-          </span> 
-          <div className="username">
-          <h1>User!</h1>    
-          </div>
-          </div>
-         
-          <div className="sidebuttons">
+    <aside>
+          <div className="aside">
+            <div className="sidebar">
+              <div className="pfp" >
+                <span id='icon' onClick={handleAccountClick} class="icon material-symbols-outlined">
+              edit
+              </span> 
+              <div className="username">
+              <h1>Hillbert Tan</h1>    
+              </div>
+              </div>
+             <div className="sidebuttons">
             <a onClick={handleHomeClick}>
               <span className="material-symbols-outlined" >
                 home
@@ -68,14 +71,27 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
               </span>
               <h2>Return</h2>
             </a>
+            <a onClick={handleUpdateItemsClick}>
+              <span className="material-symbols-outlined" >
+                update
+              </span>
+              <h2>Update Items</h2>
+            </a>
+            <a onClick={handleRequestClick}>
+              <span className="material-symbols-outlined" >
+                Request_page
+              </span>
+              <h2>Request</h2>
+            </a>
             <a href="#">
               <span className="material-symbols-outlined">logout</span>
               <h2>Logout</h2>
             </a>
             </div>
-        </div>
-      </div>
-    </aside>
+            </div>
+          </div>
+        </aside>
+      
 
        
           <div className="content">
@@ -84,13 +100,19 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
               
                <div className="logo">
                 </div>
-                <h1>Welcome to GearGuard!</h1> 
+                <h1>Update Items</h1> 
               </div>
             
             <div className="lower">
                  <div className="Updatebuttons">
                  <div className="card flex justify-content-center">
-            <Button label="Submit" />
+            <Button className='ubtn1' label="Update Quantity" onClick={handleUpdateItemClick}/>
+        </div>
+        <div className="card flex justify-content-center">
+            <Button className='ubtn1' label="Add Item" onClick={handleAddClick} />
+        </div>
+        <div className="card flex justify-content-center">
+            <Button className='ubtn1' label="Remove Item" onClick={handleRemoveClick}/>
         </div>
                  </div>
             </div>
