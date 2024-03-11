@@ -39,12 +39,11 @@ function Return() {
     }
   };
   
-  const handleAccountClick = () => navigate('/Account');
+
   const handleScanClick = () => navigate('/Scan');
   const handleScanRClick = () => navigate('/ScanR');
-  const handleAddClick = () => navigate('/Add');
-  const handleRemoveClick = () => navigate('/Remove');
-  const handleUpdateItemClick = () => navigate('/Update-Item');
+
+
   const handleUpdateItemsClick = () => navigate('/Update-Items');
   const hanldeRequestUserClick = () => navigate('/Request-User');
   const hanldeRequestAdminClick = () => navigate('/Request-Admin');
@@ -65,9 +64,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
           <div className="aside">
             <div className="sidebar">
               <div className="pfp" >
-                <span id='icon' onClick={handleAccountClick} class="icon material-symbols-outlined">
-              edit
-              </span> 
+               
               <div className="username">
               <h1>Hillbert Tan</h1>    
               </div>

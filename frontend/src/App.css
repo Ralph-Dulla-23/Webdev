@@ -213,12 +213,14 @@ aside .sidebar a:hover span{
 }
 
 /* Add this CSS to define a custom header style */
-.custom-header {
-  background: pink;
+.custom-header2 {
+  background: #ff859b;
 }
 
 
-
+.yes{
+  background-color: #e96d83;
+}
 
 /* Add this CSS to round the corners of the DataTable */
 .custom-datatable {
@@ -228,6 +230,8 @@ aside .sidebar a:hover span{
 
 .itemid{
   font-size: 20px;
+  background-color: #e96d83;
+  color: white;
 }
 
 footer {

@@ -1,14 +1,10 @@
-
 import { useNavigate } from 'react-router-dom';
-
 import { Password } from 'primereact/password';
-
+import { Card } from 'primereact/card';  
 import { InputText } from 'primereact/inputtext';
-
 import React, { useState } from "react";
-
-
 import { Button } from 'primereact/button';
+import Pending from './Pending.jsx'
                 
 
 function RequestAdmin() {
@@ -16,12 +12,8 @@ function RequestAdmin() {
   const handleHomeClick = () => navigate('/');
   const handleBorrowClick = () => navigate('/Borrow');
   const handleReturnClick = () => navigate('/Return');
-  const handleAccountClick = () => navigate('/Account');
   const handleScanClick = () => navigate('/Scan');
   const handleScanRClick = () => navigate('/ScanR');
-  const handleAddClick = () => navigate('/Add');
-  const handleRemoveClick = () => navigate('/Remove');
-  const handleUpdateItemClick = () => navigate('/Update-Item');
   const handleUpdateItemsClick = () => navigate('/Update-Items');
   const hanldeRequestUserClick = () => navigate('/Request-User');
   const hanldeRequestAdminClick = () => navigate('/Request-Admin');
@@ -42,9 +34,8 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
           <div className="aside">
             <div className="sidebar">
               <div className="pfp" >
-                <span id='icon' onClick={handleAccountClick} class="icon material-symbols-outlined">
-              edit
-              </span> 
+                
+
               <div className="username">
               <h1>Hillbert Tan</h1>    
               </div>
@@ -97,11 +88,11 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
               
                <div className="logo">
                 </div>
-                <h1>Welcome to GearGuard!</h1> 
+                <h1>Request Admin Screen</h1> 
               </div>
             
             <div className="lower">
-                 
+                <Pending></Pending>
             </div>
             
           </div>

@@ -1,9 +1,10 @@
 
 import { useNavigate } from 'react-router-dom';
-
+import { Calendar } from 'primereact/calendar';
 import { Password } from 'primereact/password';
-
-import { InputText } from 'primereact/inputtext';
+import { InputTextarea } from "primereact/inputtextarea";
+import { InputNumber } from 'primereact/inputnumber';
+        
 
 import React, { useState } from "react";
 
@@ -12,16 +13,17 @@ import { Button } from 'primereact/button';
                 
 
 function RequestUser() {
+  const [value, setValue] = useState('');
+  const [date, setDate] = useState(null);
   const navigate = useNavigate();
   const handleHomeClick = () => navigate('/');
   const handleBorrowClick = () => navigate('/Borrow');
   const handleReturnClick = () => navigate('/Return');
-  const handleAccountClick = () => navigate('/Account');
+  
   const handleScanClick = () => navigate('/Scan');
   const handleScanRClick = () => navigate('/ScanR');
-  const handleAddClick = () => navigate('/Add');
-  const handleRemoveClick = () => navigate('/Remove');
-  const handleUpdateItemClick = () => navigate('/Update-Item');
+
+
   const handleUpdateItemsClick = () => navigate('/Update-Items');
   const hanldeRequestUserClick = () => navigate('/Request-User');
   const hanldeRequestAdminClick = () => navigate('/Request-Admin');
@@ -42,9 +44,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
           <div className="aside">
             <div className="sidebar">
               <div className="pfp" >
-                <span id='icon' onClick={handleAccountClick} class="icon material-symbols-outlined">
-              edit
-              </span> 
+              
               <div className="username">
               <h1>Hillbert Tan</h1>    
               </div>
@@ -101,8 +101,31 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
               </div>
             
             <div className="lower">
-                 
-            </div>
+              <div className="lower1">
+              <div className="uppercal">
+                <h3>
+                  Item Id:
+                </h3>
+                <h3>
+                  New Deadline:
+                </h3>
+                 </div> 
+                 <div className="uppercal2">
+                <InputNumber className='Itemid' inputStyle={{fontSize: '20px'}} />
+                <Calendar className='calendar' inputStyle={{fontSize: '20px'}} value={date} onChange={(e) => setDate(e.value)} />
+             </div>
+               
+                <div className='lowercal'>
+                  <h3>
+                    Reason:
+                  </h3>
+                  <InputTextarea className='reason' inputStyle={{fontSize: '20px'}} autoResize value={value} onChange={(e) => setValue(e.target.value)} rows={5} cols={30} />
+                  </div>
+                  <Button  className='confirmc' label='Confirm' />
+              </div>
+            
+
+           </div>
             
           </div>
           <footer>
@@ -118,4 +141,5 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
   )
 }
 
-export default RequestUser
+export default RequestUser;
+

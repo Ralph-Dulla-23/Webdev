@@ -22,12 +22,11 @@ function App() {
   const handleHomeClick = () => navigate('/');
   const handleBorrowClick = () => navigate('/Borrow');
   const handleReturnClick = () => navigate('/Return');
-  const handleAccountClick = () => navigate('/Account');
+ 
   const handleScanClick = () => navigate('/Scan');
   const handleScanRClick = () => navigate('/ScanR');
-  const handleAddClick = () => navigate('/Add');
-  const handleRemoveClick = () => navigate('/Remove');
-  const handleUpdateItemClick = () => navigate('/Update-Item');
+
+  
   const handleUpdateItemsClick = () => navigate('/Update-Items');
   const hanldeRequestUserClick = () => navigate('/Request-User');
   const hanldeRequestAdminClick = () => navigate('/Request-Admin');
@@ -48,9 +47,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
           <div className="aside">
             <div className="sidebar">
               <div className="pfp" >
-                <span id='icon' onClick={handleAccountClick} class="icon material-symbols-outlined">
-              edit
-              </span> 
+               
               <div className="username">
               <h1>Hillbert Tan</h1>    
               </div>
@@ -108,17 +105,17 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
             
               
               <div className="lower">
-  <div className="table">
+ 
     <div className="card custom-datatable">
-      <DataTable value={products}  scrollable scrollHeight="400px" tableStyle={{ minWidth: '50rem' }}>
-        <Column headerClassName='custom-header' className='itemid' field="ItemId" header="ID"></Column>
-        <Column headerClassName='custom-header' field="ItemName" header="Item"></Column>
-        <Column headerClassName='custom-header' field="Status" header="Status"></Column>
-        <Column headerClassName='custom-header' field="DateBorrowed" header="Date Borrowed"></Column>
-        <Column headerClassName='custom-header' field="ReturnDate" header="Return Date"></Column>
+      <DataTable className='yes' value={products}  scrollable scrollHeight="400px" tableStyle={{ minWidth: '50rem' }}>
+        <Column headerClassName='custom-header2' className='itemid' field="ItemId" header="ID"></Column>
+        <Column headerClassName='custom-header2' className='itemid' field="ItemName" header="Item"></Column>
+        <Column headerClassName='custom-header2' className='itemid' field="Status" header="Status"></Column>
+        <Column headerClassName='custom-header2' className='itemid' field="DateBorrowed" header="Date Borrowed"></Column>
+        <Column headerClassName='custom-header2' className='itemid' field="ReturnDate" header="Return Date"></Column>
       </DataTable>
     </div>
-  </div>
+  
 </div>
 
 

@@ -8,6 +8,7 @@ import { Password } from 'primereact/password';
 import { InputText } from 'primereact/inputtext';
 
 import React, { useState } from "react";
+import UItem from './UItem.jsx';
 
 
 import { Button } from 'primereact/button';
@@ -19,12 +20,11 @@ function UpdateItems() {
   const handleHomeClick = () => navigate('/');
   const handleBorrowClick = () => navigate('/Borrow');
   const handleReturnClick = () => navigate('/Return');
-  const handleAccountClick = () => navigate('/Account');
+
+  
   const handleScanClick = () => navigate('/Scan');
   const handleScanRClick = () => navigate('/ScanR');
-  const handleAddClick = () => navigate('/Add');
-  const handleRemoveClick = () => navigate('/Remove');
-  const handleUpdateItemClick = () => navigate('/Update-Item');
+
   const handleUpdateItemsClick = () => navigate('/Update-Items');
   const hanldeRequestUserClick = () => navigate('/Request-User');
   const hanldeRequestAdminClick = () => navigate('/Request-Admin');
@@ -45,9 +45,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
           <div className="aside">
             <div className="sidebar">
               <div className="pfp" >
-                <span id='icon' onClick={handleAccountClick} class="icon material-symbols-outlined">
-              edit
-              </span> 
+               
               <div className="username">
               <h1>Hillbert Tan</h1>    
               </div>
@@ -104,17 +102,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
               </div>
             
             <div className="lower">
-                 <div className="Updatebuttons">
-                 <div className="card flex justify-content-center">
-            <Button className='ubtn1' label="Update Quantity" onClick={handleUpdateItemClick}/>
-        </div>
-        <div className="card flex justify-content-center">
-            <Button className='ubtn1' label="Add Item" onClick={handleAddClick} />
-        </div>
-        <div className="card flex justify-content-center">
-            <Button className='ubtn1' label="Remove Item" onClick={handleRemoveClick}/>
-        </div>
-                 </div>
+                <UItem></UItem>
             </div>
             
           </div>

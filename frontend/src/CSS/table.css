@@ -1,29 +1,38 @@
-.app-container {
+.Table-Container {
     display: flex;
     flex-direction: column;
     gap: 10px;
     padding: 1rem;
+    color: #fafafd;
   }
   
-  table {
+ table {
     border-collapse: collapse;
     width: 100%;
+    color: #fafafd;
   }
   
   th,
   td {
-    border: 1px solid #ffffff;
+    background-color: #b34f61;
     text-align: left;
     padding: 8px;
     font-size: 32px;
+    
+  }
+
+  .custom-header{
+    background-color: #ff6c85;
   }
   
-  th {
-    background-color: rgb(117, 201, 250);
+  th{
+    background-color: #7f404b;
+    font-size: 20px;
+    color: white;
   }
   
   td {
-    background-color: rgb(205, 235, 253);
+    background-color: #fafafd;
   }
   
   form {
