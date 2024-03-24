@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import React, { useState } from 'react';    
+import React, { useEffect, useState } from 'react';
 import { Button } from 'primereact/button';  
 import { InputNumber } from 'primereact/inputnumber';
-        
+   
 
 function Scan() {
 
@@ -12,14 +12,27 @@ function Scan() {
   const [selectedItem, setSelectedItem] = useState(null);
   const items = Array.from({ length: 100000 }).map((_, i) => ({ label: `Item #${i}`, value: i }));
 
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Move the useNavigate hook before its usage
+
+  useEffect(() => {
+    // Check if ID is already stored
+    const id = localStorage.getItem('user_id');
+    if (id) {
+      navigate('/Dashboard'); // Redirect if ID exists
+    }
+  }, [navigate]);
+
+  const handleDashboardClick = () => {
+    // Store the ID and navigate to Dashboard
+    localStorage.setItem('user_id', value);
+    navigate('/Dashboard');
+  };
+
   const handleHomeClick = () => navigate('/');
   const handleBorrowClick = () => navigate('/Borrow');
   const handleReturnClick = () => navigate('/Return');
- 
   const handleScanClick = () => navigate('/Scan');
   const handleScanRClick = () => navigate('/ScanR');
- 
   const handleUpdateItemsClick = () => navigate('/Update-Items');
   const hanldeRequestUserClick = () => navigate('/Request-User');
   const hanldeRequestAdminClick = () => navigate('/Request-Admin');
@@ -93,7 +106,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
             <h4>Hello Please Input ID First</h4>
             
                 <InputNumber className='inputID' placeholder="Input ID" id="number-input" value={value} onValueChange={(e) => setValue(e.value)} />
-                <Button className='tn' label="Confirm" onClick={handleHomeClick}/>
+                <Button className='tn' label="Confirm" onClick={handleDashboardClick}/>
         </div>
          
           <footer>

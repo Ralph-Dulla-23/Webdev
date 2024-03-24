@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 
 
-import App from './App.jsx'
+import Dashboard from './Dashboard.jsx'
 import Return from './Pages/Return/Return.jsx'
 import Borrow from './Pages/Borrow/Borrow.tsx'
 
@@ -37,7 +37,11 @@ import 'primeicons/primeicons.css';
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Scan />,
+  },
+  {
+    path: "/Dashboard",
+    element: <Dashboard />,
   },
   {
     path: "/Return",

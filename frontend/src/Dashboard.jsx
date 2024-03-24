@@ -1,12 +1,12 @@
 
 import './App.css'
-import TableItems from '../src/JSON/TableItems.json';
+import TableItems from './JSON/TableItems.json';
 import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react'
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { ForTableJSON } from './JSON/ForTableJSON.jsx';
-import { Items } from './JavaScript/Items';        
+import { Items } from './JavaScript/Items.js';        
 import  {table} from "./Pages/table.jsx";
 
 
@@ -19,14 +19,20 @@ function App() {
   }, []);
 
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Clear user ID from localStorage
+    localStorage.removeItem('user_id');
+    // Navigate back to the first scan page
+    navigate('/Scan');
+  };
+
+  // Other navigation handlers
   const handleHomeClick = () => navigate('/');
   const handleBorrowClick = () => navigate('/Borrow');
   const handleReturnClick = () => navigate('/Return');
- 
   const handleScanClick = () => navigate('/Scan');
   const handleScanRClick = () => navigate('/ScanR');
-
-  
   const handleUpdateItemsClick = () => navigate('/Update-Items');
   const hanldeRequestUserClick = () => navigate('/Request-User');
   const hanldeRequestAdminClick = () => navigate('/Request-Admin');
@@ -83,7 +89,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
               </span>
               <h2>Request</h2>
             </a>
-            <a href="#">
+            <a onClick={handleLogout}> {/* Logout handler */}
               <span className="material-symbols-outlined">logout</span>
               <h2>Logout</h2>
             </a>
