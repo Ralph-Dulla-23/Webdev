@@ -13,21 +13,26 @@ import { Button } from 'primereact/button';
                 
 
 function RequestUser() {
+ 
   const [value, setValue] = useState('');
   const [date, setDate] = useState(null);
   const navigate = useNavigate();
   const handleHomeClick = () => navigate('/');
   const handleBorrowClick = () => navigate('/Borrow');
   const handleReturnClick = () => navigate('/Return');
-  
   const handleScanClick = () => navigate('/Scan');
   const handleScanRClick = () => navigate('/ScanR');
-
-
   const handleUpdateItemsClick = () => navigate('/Update-Items');
   const hanldeRequestUserClick = () => navigate('/Request-User');
   const hanldeRequestAdminClick = () => navigate('/Request-Admin');
   const handleRequestClick = () => navigate('/Request');
+
+  const handleLogout = () => {
+    // Clear user ID from localStorage
+    localStorage.removeItem('user_id');
+    // Navigate back to the first scan page
+    navigate('/Scan');
+  };
 
 
 
@@ -80,7 +85,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
               </span>
               <h2>Request</h2>
             </a>
-            <a href="#">
+            <a onClick={handleLogout}> {/* Logout handler */}
               <span className="material-symbols-outlined">logout</span>
               <h2>Logout</h2>
             </a>

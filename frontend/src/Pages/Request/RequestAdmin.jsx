@@ -8,6 +8,7 @@ import Pending from './Pending.jsx'
                 
 
 function RequestAdmin() {
+ 
   const navigate = useNavigate();
   const handleHomeClick = () => navigate('/');
   const handleBorrowClick = () => navigate('/Borrow');
@@ -19,7 +20,14 @@ function RequestAdmin() {
   const hanldeRequestAdminClick = () => navigate('/Request-Admin');
   const handleRequestClick = () => navigate('/Request');
 
+  const handleLogout = () => {
+    // Clear user ID from localStorage
+    localStorage.removeItem('user_id');
+    // Navigate back to the first scan page
+    navigate('/Scan');
+  };
 
+  
 
   return (
     <>
@@ -71,7 +79,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
               </span>
               <h2>Request</h2>
             </a>
-            <a href="#">
+            <a onClick={handleLogout}> {/* Logout handler */}
               <span className="material-symbols-outlined">logout</span>
               <h2>Logout</h2>
             </a>

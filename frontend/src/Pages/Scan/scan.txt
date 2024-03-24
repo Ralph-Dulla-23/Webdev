@@ -9,7 +9,6 @@ import { InputText } from "primereact/inputtext"; // Import InputText
 import { classNames } from 'primereact/utils'; // Import classNames
 
 function Scan() {
-
   const [value, setValue] = useState('');
   const [isInputValid, setIsInputValid] = useState(true);
   const navigate = useNavigate();
@@ -65,13 +64,8 @@ function Scan() {
 
   return (
     <>
-
-<link rel="stylesheet" href="https://fonts.googleapis.com/cs
-s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
-,100..700,0..1,-50..200" />
-
-<div className="WholeContent">
-<Controller
+      <div className="WholeContent">
+      <Controller
   name="value"
   control={control}
   rules={{ required: 'Please enter an ID' }} // Add rules for required field
@@ -81,7 +75,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
         gpp_maybe
       </span>
       <h4>Hello Please Input ID First</h4>
-      <InputNumber inputStyle={{margin: '5px'}}
+      <InputNumber
         id={field.name}
         className={classNames('inputID', { 'p-invalid': fieldState.error })}
         placeholder="Input ID"
@@ -99,15 +93,19 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
     </div>
   )}
 />
-      <footer>
-        <div className="footer-content">
-          <h3>GearGuard</h3>
-          <p>Praise be Jesus and Mary! Now and Forever!</p>
-        </div>
-      </footer>
-    </div>
+
+
+        <footer>
+          <div className="footer-content">
+            <h3>GearGuard</h3>
+            <p>Praise be Jesus and Mary! Now and Forever!</p>
+          </div>
+        </footer>
+      </div>
+
+    
     </>
-  )
+  );
 }
 
-export default Scan
+export default Scan;

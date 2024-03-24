@@ -30,6 +30,8 @@
     background-color: #e96d83;
 }
 
+.p-inputtext{}
+
 @media only screen and (max-width: 1024px) {
 .scan{
     display: flex;

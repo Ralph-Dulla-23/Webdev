@@ -38,12 +38,17 @@ function Return() {
       setMessage({ severity: 'error', summary: 'Validation Error', detail: 'Please fill in all required fields!' });
     }
   };
+
+  const handleLogout = () => {
+    // Clear user ID from localStorage
+    localStorage.removeItem('user_id');
+    // Navigate back to the first scan page
+    navigate('/Scan');
+  };
   
 
   const handleScanClick = () => navigate('/Scan');
   const handleScanRClick = () => navigate('/ScanR');
-
-
   const handleUpdateItemsClick = () => navigate('/Update-Items');
   const hanldeRequestUserClick = () => navigate('/Request-User');
   const hanldeRequestAdminClick = () => navigate('/Request-Admin');
@@ -100,7 +105,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
               </span>
               <h2>Request</h2>
             </a>
-            <a href="#">
+            <a onClick={handleLogout}> {/* Logout handler */}
               <span className="material-symbols-outlined">logout</span>
               <h2>Logout</h2>
             </a>
