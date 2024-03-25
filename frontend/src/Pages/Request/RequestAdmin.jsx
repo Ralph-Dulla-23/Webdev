@@ -10,7 +10,7 @@ import Pending from './Pending.jsx'
 function RequestAdmin() {
  
   const navigate = useNavigate();
-  const handleHomeClick = () => navigate('/');
+  const handleHomeClick = () => navigate('/Dashboard');
   const handleBorrowClick = () => navigate('/Borrow');
   const handleReturnClick = () => navigate('/Return');
   const handleScanClick = () => navigate('/Scan');

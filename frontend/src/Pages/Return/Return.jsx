@@ -24,7 +24,7 @@ function Return() {
 
   const navigate = useNavigate();
 
-  const handleHomeClick = () => navigate('/');
+  const handleHomeClick = () => navigate('/Dashboard');
   const handleBorrowClick = () => navigate('/Borrow');
   const handleReturnClick = () => {
     if (selectedItem && value1) {

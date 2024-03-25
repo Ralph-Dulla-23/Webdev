@@ -37,7 +37,7 @@ import 'primeicons/primeicons.css';
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Scan />,
+    element: <ScanA />,
   },
   {
     path: "/Dashboard",

@@ -4,7 +4,7 @@ import { Button } from 'primereact/button';
 import { InputNumber } from 'primereact/inputnumber';
         
 
-function Scan() {
+function ScanR() {
 
   const [value, setValue] = useState();
   const [value1, setValue1] = useState(0);
@@ -13,7 +13,7 @@ function Scan() {
   const items = Array.from({ length: 100000 }).map((_, i) => ({ label: `Item #${i}`, value: i }));
 
   const navigate = useNavigate();
-  const handleHomeClick = () => navigate('/');
+  const handleHomeClick = () => navigate('/Dashboard');
   const handleBorrowClick = () => navigate('/Borrow');
   const handleReturnClick = () => navigate('/Return');
   
@@ -115,4 +115,4 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
   )
 }
 
-export default Scan
+export default ScanR

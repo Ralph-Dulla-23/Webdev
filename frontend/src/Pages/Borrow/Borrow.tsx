@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { MultiSelect } from 'primereact/multiselect';
-import React, { useState, useRef } from 'react';    
+import React, { useState, useRef, useEffect } from 'react'; // Import useEffect
 import { Button } from 'primereact/button';        
 import { InputNumber } from 'primereact/inputnumber';
 import items from '../../JSON/items.json';
@@ -15,12 +15,18 @@ interface InputValue {
   itemId: string;
 }
 
-function Return() {
+function Borrow() {
+  const navigate = useNavigate(); // Declare navigate function here
+
+  useEffect(() => {
+    // Set a flag in localStorage indicating that the Borrow page has been visited
+    localStorage.setItem('borrow_visited', 'true');
+  }, []);
+
   const [value1, setValue1] = useState();
   const [multiselectValue, setMultiselectValue] = useState(null);
   const multiselectValues: InputValue[] = itemsBar;
   const toast = useRef(null);
-  const navigate = useNavigate(); // Declare navigate function here
 
   const handleBorrowBtn = () => {
     multiselectValues.forEach((selectedItem: InputValue) => {
@@ -44,10 +50,11 @@ function Return() {
     navigate('/Scan');
   };
 
-  const handleHomeClick = () => navigate('/');
+  const handleHomeClick = () => navigate('/Dashboard');
   const handleBorrowClick = () => navigate('/Borrow');
   const handleReturnClick = () => navigate('/Return');
   const handleScanClick = () => navigate('/Scan');
+  const handleScanAClick = () => navigate('/ScanA');
   const handleScanRClick = () => navigate('/ScanR');
   const handleUpdateItemsClick = () => navigate('/Update-Items');
   const hanldeRequestUserClick = () => navigate('/Request-User');
@@ -164,4 +171,4 @@ function Return() {
   )
 }
 
-export default Return;
+export default Borrow;

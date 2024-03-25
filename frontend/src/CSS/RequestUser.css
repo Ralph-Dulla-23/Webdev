@@ -27,6 +27,9 @@
 .Itemid, .calendar{
     margin-right: 76px;
 }
+.p-datepicker-calendar td{
+    background-color: #e96d83;
+}
 
 .lowercal{
     justify-content: center;

@@ -5,25 +5,8 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { InputNumber } from 'primereact/inputnumber';
 
-function App() {
-  const initialCategories = [
-    {
-      itemId: "123",
-      code: "A1",
-      name: "Laptop",
-      quantity: "2",
-      status: "Available",
-    },
-    {
-      itemId: "124",
-      code: "A2",
-      name: "Mobile Phone",
-      quantity: "2",
-      status: "Available",
-    },
-  ];
-
-  const [categories, setCategories] = useState(initialCategories);
+function Uitem() {
+  const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [newCategory, setNewCategory] = useState({ itemId: '', code: '', name: '',quantity: '', status: '' });
 
@@ -127,4 +110,4 @@ function App() {
   );
 }
 
-export default App;
+export default Uitem;
