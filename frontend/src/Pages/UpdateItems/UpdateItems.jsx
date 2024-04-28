@@ -1,13 +1,12 @@
 
 import { useNavigate } from 'react-router-dom';
-
-
+import axios from 'axios';
         
 import { Password } from 'primereact/password';
 
 import { InputText } from 'primereact/inputtext';
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import UItem from './UItem.jsx';
 
 
@@ -15,6 +14,8 @@ import { Button } from 'primereact/button';
                 
 
 function UpdateItems() {
+
+ 
    
   const navigate = useNavigate();
   const handleHomeClick = () => navigate('/Dashboard');

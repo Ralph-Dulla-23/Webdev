@@ -1,109 +1,120 @@
-import React, { useState } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
-import { InputNumber } from 'primereact/inputnumber';
 
 function Uitem() {
-  const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [newCategory, setNewCategory] = useState({ itemId: '', code: '', name: '',quantity: '', status: '' });
+  const [items, setItems] = useState([]);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [newItem, setNewItem] = useState({ ItemName: "", FromLab: "", ItemDescription: "", Quantity: ""});
 
-  const handleEdit = () => {
-    if (selectedCategory) {
-      const updatedCategories = categories.map(category => {
-        if (category.itemId === selectedCategory.itemId) {
-          return selectedCategory;
-        }
-        return category;
-      });
-      setCategories(updatedCategories);
-      setSelectedCategory(null);
-    }
-  };
-  
-  const handleDelete = () => {
-    if (selectedCategory) {
-      setCategories(categories.filter(category => category.itemId !== selectedCategory.itemId));
-      setSelectedCategory(null);
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const result = await axios("http://localhost:3206/getItems");
+      setItems(result.data);
+    } catch (err) {
+      console.log("Error with axios", err);
     }
   };
 
-  const handleAdd = () => {
-    if (newCategory.name && newCategory.code) {
-      setCategories([...categories, { ...newCategory, itemId: categories.length + 1 }]);
-      setNewCategory({ itemId: '', code: '', name: '',quantity: '', status: '' });
+  const handleRowClick = (item) => {
+    setSelectedItem({ ...item });
+  };
+
+  const handleEditChange = (key, value) => {
+    setSelectedItem(prev => ({ ...prev, [key]: value }));
+  };
+
+  const handleEdit = async () => {
+    if (selectedItem) {
+      try {
+        await axios.put(`http://localhost:3206/updateItem/${selectedItem.ItemID}`, selectedItem);
+        fetchData();
+        setSelectedItem(null);
+      } catch (err) {
+        console.log("Error updating item", err);
+      }
+    }
+  };
+
+  const handleDelete = async () => {
+    if (selectedItem) {
+      try {
+        await axios.delete(`http://localhost:3206/deleteItem/${selectedItem.ItemID}`);
+        setItems(items.filter(item => item.ItemID !== selectedItem.ItemID));
+        setSelectedItem(null);
+      } catch (err) {
+        console.log("Error deleting item", err);
+      }
+    }
+  };
+
+  const handleNewInputChange = (key, value) => {
+    setNewItem(prev => ({ ...prev, [key]: value }));
+  };
+
+  const handleAdd = async () => {
+    try {
+      const response = await axios.post("http://localhost:3206/CreateItem", newItem);
+      setItems([...items, response.data]);
+      setNewItem({ ItemName: "", FromLab: "", ItemDescription: "", Quantity: "" });
+    } catch (err) {
+      console.log("Error adding item", err);
     }
   };
 
   return (
     <div>
-      <h1></h1>
+      <h1>Item Management</h1>
       <div className="master-detail-container">
         <div className="master-section">
-          <DataTable className='dtuitem'
-            value={categories}
-            selectionMode="single"
-            selection={selectedCategory}
-            onSelectionChange={(e) => setSelectedCategory(e.value)}
-          >
-            <Column className='citem' field="itemId" header="ID"></Column>
-            <Column className='citem' field="code" header="Code"></Column>
-            <Column className='citem' field="name" header="Name"></Column>
-            <Column className='citem' field="quantity" header="Quantity"></Column>
-            <Column className='citem' field="status" header="Status"></Column>
-          </DataTable>
+          <table className="dtuitem">
+            <thead>
+              <tr>
+                <th>Item Name</th>
+                <th>ID</th>
+                <th>From Lab</th>
+                <th>Description</th>
+                <th>Quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+              {items.map((item) => (
+                <tr key={item.ItemID} onClick={() => handleRowClick(item)} className="clickable-row">
+                  <td className='citem'>{item.ItemName}</td>
+                  <td className='citem'>{item.ItemID}</td>
+                  <td className='citem'>{item.FromLab}</td>
+                  <td className='citem'>{item.ItemDescription}</td>
+                  <td className='citem'>{item.Quantity}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
         <div className="detail-section">
-        {selectedCategory && (
+          {selectedItem && (
+            <div>
+              <h2>Edit Item</h2>
+              <InputText className="inputadd" value={selectedItem.ItemName} onChange={(e) => handleEditChange('ItemName', e.target.value)} />
+              <InputText className="inputadd" value={selectedItem.FromLab} onChange={(e) => handleEditChange('FromLab', e.target.value)} />
+              <InputText className="inputadd" value={selectedItem.ItemDescription} onChange={(e) => handleEditChange('ItemDescription', e.target.value)} />
+              <InputText className="inputadd" value={selectedItem.Quantity} onChange={(e) => handleEditChange('Quantity', e.target.value)} />
+              <Button className="btnadd" label="Save" onClick={handleEdit} />
+              <Button className="btnadd" label="Delete" onClick={handleDelete} />
+            </div>
+          )}
           <div>
-            <h2>Edit Items</h2>
-            <InputText className='inputadd'
-              value={selectedCategory.code}
-              onChange={(e) => setSelectedCategory({ ...selectedCategory, code: e.target.value })}
-            />
-            <InputText className='inputadd'
-              value={selectedCategory.name}
-              onChange={(e) => setSelectedCategory({ ...selectedCategory, name: e.target.value })}
-            />
-            <InputText className='inputadd'
-              value={selectedCategory.quantity}
-              onChange={(e) => setSelectedCategory({ ...selectedCategory, quantity: e.target.value })}
-            />
-            <InputText className='inputadd'
-              value={selectedCategory.status}
-              onChange={(e) => setSelectedCategory({ ...selectedCategory, status: e.target.value })}
-            />
-            <Button className='btnadd' label="Save" icon="pi pi-check" onClick={handleEdit} />
-            <Button className='btnadd' label="Delete" icon="pi pi-trash" onClick={handleDelete} />
+            <h2>Add Item</h2>
+            <InputText className="inputadd" value={newItem.ItemName} onChange={(e) => handleNewInputChange('ItemName', e.target.value)} placeholder="Name" />
+            <InputText className="inputadd" value={newItem.FromLab} onChange={(e) => handleNewInputChange('FromLab', e.target.value)} placeholder="From Lab" />
+            <InputText className="inputadd" value={newItem.ItemDescription} onChange={(e) => handleNewInputChange('ItemDescription', e.target.value)} placeholder="Description" />
+            <InputText className="inputadd" value={newItem.Quantity} onChange={(e) => handleNewInputChange('Quantity', e.target.value)} placeholder="Quantity" />
+            <Button className="btnadd" label="Add" onClick={handleAdd} />
           </div>
-        )}
-        <div>
-          <h2>Add Items</h2>
-          <InputText className='inputadd'
-            value={newCategory.code}
-            onChange={(e) => setNewCategory({ ...newCategory, code: e.target.value })}
-            placeholder="Code"
-          />
-          <InputText className='inputadd'
-            value={newCategory.name}
-            onChange={(e) => setNewCategory({ ...newCategory, name: e.target.value })}
-            placeholder="Name"
-          /> 
-          <InputText className='inputadd'
-            value={newCategory.quantity}
-            onChange={(e) => setNewCategory({ ...newCategory, quantity: e.target.value })}
-            placeholder="Quantity"
-          />
-          <InputText className='inputadd'
-            value={newCategory.status}
-            onChange={(e) => setNewCategory({ ...newCategory, status: e.target.value })}
-            placeholder="Status"
-          />
-          <Button className='btnadd' label="Add" icon="pi pi-plus" onClick={handleAdd} />
-        </div>
-
         </div>
       </div>
     </div>

@@ -1,13 +1,30 @@
 import { useNavigate } from 'react-router-dom';
-import React, { useState } from 'react';    
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';    
 import { Button } from 'primereact/button';  
 import { InputNumber } from 'primereact/inputnumber';
+import { InputText } from "primereact/inputtext"; // Import InputText
         
 
 function ScanR() {
-
+  const [IDs, setIDs] = useState([]);
   const [value, setValue] = useState();
   const [value1, setValue1] = useState(0);
+
+  useEffect(() => {
+    fetchData();
+ },[])
+ 
+  const fetchData = async () => {
+    try {
+      const result = await axios("http://localhost:3206/getBorrowing");
+       console.log(result.data.map(res => res.ID));
+       setIDs(result.data.map(res => res.ID));
+   }catch (err) {
+        console.log("Error with axios")
+   }
+  }//backend 3
+
     
   const [selectedItem, setSelectedItem] = useState(null);
   const items = Array.from({ length: 100000 }).map((_, i) => ({ label: `Item #${i}`, value: i }));
@@ -15,7 +32,23 @@ function ScanR() {
   const navigate = useNavigate();
   const handleHomeClick = () => navigate('/Dashboard');
   const handleBorrowClick = () => navigate('/Borrow');
-  const handleReturnClick = () => navigate('/Return');
+  const change = event =>{
+    
+  }
+  const handleReturnClick = () =>{
+    
+    console.log('clicked');
+    const input = document.getElementById('inputID');
+    console.log(input.value);
+    if(IDs.includes(input.value)) {
+      console.log('dassad')
+      navigate('/Return')
+      
+   }else{
+    alert(`User ID does not exist!`)
+   }
+    
+  };
   
   const handleScanClick = () => navigate('/Scan');
   const handleScanRClick = () => navigate('/ScanR');
@@ -98,7 +131,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
             </span>
             <h4>Hello Please Input ID First</h4>
             
-                <InputNumber className='inputID' placeholder="Input ID" id="number-input" value={value} onValueChange={(e) => setValue(e.value)} />
+                <InputText className='inputID' placeholder="Input ID" id="inputID" value={value} onValueChange={(e) => setValue(e.value)} />
                 <Button className='tn' label="Confirm" onClick={handleReturnClick}/>
         </div>
          

@@ -15,6 +15,8 @@ import RequestAdmin from './Pages/Request/RequestAdmin.jsx'
 import Request from './Pages/Request/Request.jsx'
 import UItem from './Pages/UpdateItems/UItem.jsx'
 import Pending from './Pages/Request/Pending.jsx'
+import ScanB from './Pages/Scan/ScanB.jsx'
+
 
 import {createBrowserRouter,RouterProvider} from "react-router-dom";
 
@@ -63,6 +65,10 @@ const router = createBrowserRouter([
   {
     path: "/ScanA",
     element: <ScanA />
+  },
+  {
+    path: "/ScanB",
+    element: <ScanB />
   },
   {
     path: "/Update-Items",

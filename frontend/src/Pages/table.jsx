@@ -8,6 +8,19 @@ import "../CSS/table.css";
 
     const [Items, setItems] = useState(data);
 
+    useEffect(() => {
+      fetchData();
+   },[])
+  
+   const fetchData = async () => {
+    try {
+        const result = await axios("http://localhost:3206/getItems");
+        console.log(result);
+        setItems(result.data);
+    }catch (err) {
+        console.log("Error with axios")
+    }
+  }
 
  return <div className="Table-Container"> 
  <table>
@@ -15,15 +28,15 @@ import "../CSS/table.css";
      <tr>
        <th>Item ID</th>
        <th>Item Name</th>
-       <th>Status</th>
-       <th>Date Borrowed</th>
+       <th>From</th>
+       <th>Description</th>
        <th>Return Date</th>
      </tr>
     </thead>
     <tbody>
-        {Items.map((Item) => (
+        {Items.map(() => (
         <tr>
-         <td> {Item.ItemId} </td>
+         <td> {Item.ItemID} </td>
          <td> {Item.ItemName}</td>
          <td> {Item.Status}</td>
          <td> {Item.DateBorrowed}</td>

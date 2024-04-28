@@ -2,36 +2,46 @@ import { useNavigate } from 'react-router-dom';
 import { MultiSelect } from 'primereact/multiselect';
 import React, { useState, useRef, useEffect } from 'react'; // Import useEffect
 import { Button } from 'primereact/button';        
+import axios from 'axios';
 import { InputNumber } from 'primereact/inputnumber';
 import items from '../../JSON/items.json';
 import { Toast } from 'primereact/toast';
+import { Items } from '../../JavaScript/Items';
 
-let itemsBar = items;
+
 
 interface InputValue {
-  name: string;
-  code: string;
-  status: string;
-  itemId: string;
+  ItemName: string;
+  Quantity: number;
 }
 
 function Borrow() {
+  const [Availitems, setItems] = useState([]);
   const navigate = useNavigate(); // Declare navigate function here
 
   useEffect(() => {
-    // Set a flag in localStorage indicating that the Borrow page has been visited
-    localStorage.setItem('borrow_visited', 'true');
+    fetchData();
   }, []);
 
-  const [value1, setValue1] = useState();
+   const fetchData = async () => {
+    try {
+      const result = await axios("http://localhost:3206/getAvail");
+      console.log(result);
+      setItems(result.data);
+    } catch (err) {
+      console.log("Error with axios")
+    }
+   }
+
+  const [value1, setValue1] = useState<number>(0);
   const [multiselectValue, setMultiselectValue] = useState(null);
-  const multiselectValues: InputValue[] = itemsBar;
-  const toast = useRef(null);
+  const multiselectValues: InputValue[] = Availitems;
+  const toast = useRef<any>(null);
 
   const handleBorrowBtn = () => {
     multiselectValues.forEach((selectedItem: InputValue) => {
-      const { name, code, status, itemId } = selectedItem;
-      console.log(`Borrowing ${name} (Code: ${code}, Status: ${status}, Item ID: ${itemId})`);
+      const { ItemName, Quantity } = selectedItem;
+      console.log(`Name: ${ItemName} Quantity: ${Quantity}`);
     });
 
     // Show the toast message
@@ -40,7 +50,7 @@ function Borrow() {
     }
 
     // Redirect to the Scan page after borrowing items
-    handleScanClick();
+    handleScanBClick();
   };
 
   const handleLogout = () => {
@@ -49,7 +59,7 @@ function Borrow() {
     // Navigate back to the first scan page
     navigate('/Scan');
   };
-
+  const handleScanBClick = () => navigate('/ScanB');
   const handleHomeClick = () => navigate('/Dashboard');
   const handleBorrowClick = () => navigate('/Borrow');
   const handleReturnClick = () => navigate('/Return');
@@ -129,13 +139,13 @@ function Borrow() {
                         className='itemlist'
                         value={multiselectValue}
                         onChange={(e) => setMultiselectValue(e.value)}
-                        options={multiselectValues}
-                        optionLabel="name" // Displayed in the input field
-                        itemTemplate={(option: InputValue) => (
+                        optionLabel="ItemName" // Displayed in the input field
+                        optionValue="ItemName"
+                        options={multiselectValues.filter(item => item.Quantity > 0)}
+                        itemTemplate={(option: InputValue) => ( 
                           <div>
-                            <div>{option.name}</div>
-                            <div>Status: {option.status}</div>
-                            <div>Item ID: {option.itemId}</div>
+                            <div>{option.ItemName}</div>
+                            <div>Quantity: {option.Quantity}</div>
                           </div>
                         )}  
                       />
@@ -146,7 +156,7 @@ function Borrow() {
                   </div>
                   <div className="card flex justify-content-center">
                     <div className="flex-auto">
-                      <InputNumber className='quantityitems' inputId="stacked-buttons" value={value1} onValueChange={(e) => setValue1(e.value)} showButtons mode="decimal" currency="USD" min={0} />
+                      <InputNumber className='quantityitems' inputId="stacked-buttons"  value={value1 || 0} onValueChange={(e) => setValue1(e.value ?? 0)}showButtons mode="decimal" currency="USD" min={0} />
                     </div>
                   </div>
                 </div>

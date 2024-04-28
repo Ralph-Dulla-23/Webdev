@@ -1,15 +1,30 @@
 import './App.css';
+import axios from 'axios';
 import TableItems from './JSON/TableItems.json';
 import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
+//import { DataTable } from 'primereact/datatable';
+//import { Column } from 'primereact/column';
 import { Items } from './JavaScript/Items.js';
 import { table } from "./Pages/table.jsx";
 
 function App() {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]);//for data backend 1
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchData();
+ },[])//fetching backend 2
+
+ const fetchData = async () => {
+  try {
+      const result = await axios("http://localhost:3206/forTable");
+      console.log(result);
+      setProducts(result.data);
+  }catch (err) {
+      console.log("Error with axios")
+  }
+}//backend 3
 
   useEffect(() => {
     // Check if the user has visited the Scan page before
@@ -98,13 +113,35 @@ function App() {
           </div>
           <div className="lower">
             <div className="card custom-datatable">
-              <DataTable className='yes' value={products} scrollable scrollHeight="400px" tableStyle={{ minWidth: '50rem' }}>
-                <Column headerClassName='custom-header2' className='itemid' field="ItemId" header="ID"></Column>
-                <Column headerClassName='custom-header2' className='itemid' field="ItemName" header="Item"></Column>
-                <Column headerClassName='custom-header2' className='itemid' field="Status" header="Status"></Column>
-                <Column headerClassName='custom-header2' className='itemid' field="DateBorrowed" header="Date Borrowed"></Column>
-                <Column headerClassName='custom-header2' className='itemid' field="ReturnDate" header="Return Date"></Column>
-              </DataTable>
+            <table>
+          <thead   className='yes' value={products} scrollable scrollHeight="400px" tableStyle={{ minWidth: '50rem' }}>
+            <tr>
+              <th className='yes'>Transaction ID</th>
+              <th className='yes'>ItemID</th>
+              <th className='yes'>ID</th>
+              <th className='yes'>Date Borrowed</th>
+             <th className='yes'>Status</th>
+            </tr>
+         </thead>
+         <tbody>
+            {
+              products.map((transaction, i) =>{//backend 4
+                return(
+                 <tr key={i}>
+                   <td  headerClassName='custom-header2' className='itemid' field="ItemId" header="ID">{transaction.TransactionID}</td>
+                   <td  headerClassName='custom-header2' className='itemid' field="ItemId" header="ID">{transaction.ItemID}</td>
+                   <td  headerClassName='custom-header2' className='itemid' field="ItemId" header="ID">{transaction.ID}</td>
+                   <td  headerClassName='custom-header2' className='itemid' field="ItemId" header="ID">{transaction.Borrowed_date}</td>
+                   <td  headerClassName='custom-header2' className='itemid' field="ItemId" header="ID">{transaction.Status}</td>
+
+                 </tr>
+                )
+              })
+
+            }
+            
+          </tbody>
+      </table>
             </div>
           </div>
         </div>

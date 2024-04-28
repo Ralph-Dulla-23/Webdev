@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';  
 import { InputNumber } from 'primereact/inputnumber';
@@ -9,18 +10,25 @@ import { InputText } from "primereact/inputtext"; // Import InputText
 import { classNames } from 'primereact/utils'; // Import classNames
 
 function Scan() {
-
+  const [IDs, setIDs] = useState([]);
   const [value, setValue] = useState('');
   const [isInputValid, setIsInputValid] = useState(true);
   const navigate = useNavigate();
   const toast = useRef(null);
 
   useEffect(() => {
-    const id = localStorage.getItem('user_id');
-    if (id) {
-      navigate('/Dashboard');
-    }
-  }, [navigate]);
+    fetchData();
+ },[]);
+
+ const fetchData = async () => {
+  try {
+    const result = await axios("http://localhost:3206/getAdmin");
+     console.log(result.data.map(res => res.ID));
+     setIDs(result.data.map(res => res.ID));
+ }catch (err) {
+      console.log("Error with axios")
+ }
+}
 
   const defaultValues = {
     value: ''
@@ -49,8 +57,18 @@ function Scan() {
   };
 
   const handleDashboardClick = () => {
-    localStorage.setItem('user_id', value);
-    navigate('/Dashboard');
+    
+    console.log('clicked');
+    const input = document.getElementById('inputID');
+    console.log(input.value);
+    if(IDs.includes(input.value)) {
+      console.log('dassad')
+      navigate('/Dashboard')
+      
+   }else{
+    alert(`This ID does not belong to an Admin`)
+   }
+    
   };
 
   const handleHomeClick = () => navigate('/');
@@ -81,13 +99,14 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
         gpp_maybe
       </span>
       <h4>Hello Please Input ID First</h4>
-      <InputNumber inputStyle={{margin: '5px'}}
-        id={field.name}
-        className={classNames('inputID', { 'p-invalid': fieldState.error })}
-        placeholder="Input ID"
-        value={field.value}
-        onValueChange={(e) => field.onChange(e.value)}
-      />
+      <InputText
+       inputStyle={{ margin: '5px' }}
+       id="inputID"
+       className={classNames('inputID', { 'p-invalid': fieldState.error })}
+       placeholder="Input ID"
+       value={field.value}
+       onChange={(e) => field.onChange(e.target.value)} // Update this line
+/>
       {fieldState.error && (
         <small className="p-error">{fieldState.error.message}</small>
       )}
