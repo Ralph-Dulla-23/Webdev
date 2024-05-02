@@ -51,10 +51,16 @@ function ScanR() {
   const hanldeRequestAdminClick = () => navigate('/Request-Admin');
   const handleRequestClick = () => navigate('/Request');
   const handleLogout = () => {
-    // Clear user ID from localStorage
+    document.getElementById("logoutConfirmation").style.display = "block";
+  };
+
+  const handleConfirmLogout = () => {
     localStorage.removeItem('user_id');
-    // Navigate back to the first scan page
     navigate('/Scan');
+  };
+
+  const handleCancelLogout = () => {
+    document.getElementById("logoutConfirmation").style.display = "none";
   };
 
 
@@ -134,7 +140,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
             
         </div>
     </footer>
-
+    
     </div>
     </>
   )

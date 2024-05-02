@@ -30,7 +30,18 @@ function UpdateItems() {
   const hanldeRequestUserClick = () => navigate('/Request-User');
   const hanldeRequestAdminClick = () => navigate('/Request-Admin');
   const handleRequestClick = () => navigate('/Request');
+  const handleLogout = () => {
+    document.getElementById("logoutConfirmation").style.display = "block";
+  };
 
+  const handleConfirmLogout = () => {
+    localStorage.removeItem('user_id');
+    navigate('/Scan');
+  };
+
+  const handleCancelLogout = () => {
+    document.getElementById("logoutConfirmation").style.display = "none";
+  };
 
 
   return (
@@ -82,7 +93,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
               </span>
               <h2>Request</h2>
             </a>
-            <a href="#">
+            <a onClick={handleLogout}>
               <span className="material-symbols-outlined">logout</span>
               <h2>Logout</h2>
             </a>
@@ -114,8 +125,20 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
             
         </div>
     </footer>
-
+      {/* Logout Confirmation Pop-up */}
+      <div className="form-popup" id="logoutConfirmation">
+        
+    
+          <p className='cfm'>Need Admin ID to logout</p>
+          <InputText className='inputID'></InputText>
+          <div className="btn-group">
+            <button  type="button" className="btncancel" onClick={handleCancelLogout}>Cancel</button>
+            <button  type="button" className="btnconfirm" onClick={handleConfirmLogout}>Confirm</button>
+          </div>
+        
+      </div>
     </div>
+    
     </>
   )
 }

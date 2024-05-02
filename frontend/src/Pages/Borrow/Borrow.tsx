@@ -7,6 +7,7 @@ import { InputNumber } from 'primereact/inputnumber';
 import items from '../../JSON/items.json';
 import { Toast } from 'primereact/toast';
 import { Items } from '../../JavaScript/Items';
+import { InputText } from 'primereact/inputtext';
 
 
 
@@ -54,11 +55,18 @@ function Borrow() {
   };
 
   const handleLogout = () => {
-    // Clear user ID from localStorage
+    document.getElementById("logoutConfirmation").style.display = "block";
+  };
+
+  const handleConfirmLogout = () => {
     localStorage.removeItem('user_id');
-    // Navigate back to the first scan page
     navigate('/Scan');
   };
+
+  const handleCancelLogout = () => {
+    document.getElementById("logoutConfirmation").style.display = "none";
+  };
+
   const handleScanBClick = () => navigate('/ScanB');
   const handleHomeClick = () => navigate('/Dashboard');
   const handleBorrowClick = () => navigate('/Borrow');
@@ -175,6 +183,18 @@ function Borrow() {
             <p>Praise be Jesus and Mary! Now and Forever!</p>
           </div>
         </footer>
+         {/* Logout Confirmation Pop-up */}
+      <div className="form-popup" id="logoutConfirmation">
+        
+    
+        <p className='cfm'>Need Admin ID to logout</p>
+        <InputText className='inputID'></InputText>
+        <div className="btn-group">
+          <button  type="button" className="btncancel" onClick={handleCancelLogout}>Cancel</button>
+          <button  type="button" className="btnconfirm" onClick={handleConfirmLogout}>Confirm</button>
+        </div>
+      
+    </div>
       </div>
       <Toast ref={toast} />
     </>
