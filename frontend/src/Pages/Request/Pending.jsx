@@ -1,45 +1,79 @@
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Button } from 'primereact/button';
 
 function Pending() {
+  const [transactions, setTransactions] = useState([]);
 
-    const handleAccept = (name) => {
-        // Implement your logic for accepting feedback here
-        console.log(`Accepted feedback from ${name}`);
-      };
-    
-      // Function to handle decline action
-      const handleDecline = (name) => {
-        // Implement your logic for declining feedback here
-        console.log(`Declined feedback from ${name}`);
-      };
-    
-    return (
-        <>
-          <h1 className='pendingtitle'>Pending Requests</h1>
-          <table className="custom-table-2">
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const result = await axios("http://localhost:3206/getTransactions");
+      setTransactions(result.data);
+    } catch (err) {
+      console.log("Error with axios", err);
+    }
+  };
+
+  const handleAccept = async (transactionId) => {
+    try {
+      await axios.put(`http://localhost:3206/updateTransaction/${transactionId}`, { Action: "Accepted" });
+      // After accepting, you might want to update the UI accordingly
+      fetchData();
+    } catch (err) {
+      console.log("Error accepting transaction", err);
+    }
+  };
+
+  const handleDecline = async (transactionId) => {
+    try {
+      await axios.put(`http://localhost:3206/updateTransaction/${transactionId}`, { Action: "Declined" });
+      // After declining, you might want to update the UI accordingly
+      fetchData();
+    } catch (err) {
+      console.log("Error declining transaction", err);
+    }
+  };
+
+  return (
+    <div>
+      <h1>Transaction Management</h1>
+      <div className="master-detail-container">
+        <div className="master-section">
+          <table className="dtuitem">
             <thead>
               <tr>
-                <th>Name</th>
+                <th>Transaction ID</th>
+                <th>Date</th>
                 <th>Reason</th>
-                <th>Action</th> {/* New column for buttons */}
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Luke</td>
-                <td>Need more time to borrow</td>
-                <td>
-                  {/* Accept and Decline buttons */}
-                  <button className='btnaccept' onClick={() => handleAccept('Luke')}>Accept</button>
-                  <button className='btndecline' onClick={() => handleDecline('Luke')}>Decline</button>
-                </td>
-              </tr>
-              {/* Repeat the same structure for other rows */}
+              {transactions.map((transaction) => (
+                <tr key={transaction.TransactionID}>
+                  <td>{transaction.TransactionID}</td>
+                  <td>{transaction.Date}</td>
+                  <td>{transaction.Reason}</td>
+                  <td>
+                    {transaction.Status === "Pending" && (
+                      <>
+                        <button className='btnaccept' onClick={() => handleAccept(transaction.TransactionID)}>Accept</button>
+                        <button className='btndecline' onClick={() => handleDecline(transaction.TransactionID)}>Decline</button>
+                      </>
+                    )}
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
-        </>
-    );
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default Pending;

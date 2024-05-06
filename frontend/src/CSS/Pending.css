@@ -39,3 +39,16 @@
     background-color: #d50000;
     color: white;
   }
+
+  .btnaccept{
+    background-color: #35e58d;
+    padding: 5px;
+    margin: 0 5px 0 0;
+    cursor: pointer;
+  }
+
+  .btndecline{
+    background-color: #d50000;
+    padding: 5px;
+    cursor: pointer;
+  }

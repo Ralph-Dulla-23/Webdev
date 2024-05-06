@@ -13,8 +13,14 @@ import React, { useState } from "react";
 import { Button } from 'primereact/button';
                 
 
-function RequestUser() {
- 
+function RequestUser({ onConfirm }) {
+  const [newTransaction, setNewTransaction] = useState({ TransactionID: "", Reason: "", Action: "", Date: null });
+    const handleNewInputChange = (key, value) => {
+      setNewTransaction(prevState => ({
+        ...prevState,
+        [key]: value
+      }));
+    };
   const [value, setValue] = useState('');
   const [date, setDate] = useState(null);
   const navigate = useNavigate();
@@ -41,9 +47,11 @@ function RequestUser() {
     document.getElementById("logoutConfirmation").style.display = "none";
   };
 
-
-
-
+  const handleConfirm = () => {
+    onConfirm(newTransaction); // Pass newTransaction data to the parent component
+    setNewTransaction({ TransactionID: "", Reason: "", Action: "", Date: null }); // Reset the form
+  };
+  
   return (
     <>
 
@@ -124,7 +132,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
                 </h3>
                  </div> 
                  <div className="uppercal2">
-                <InputNumber className='Itemid' inputStyle={{fontSize: '20px'}} />
+                <InputNumber className='Itemid' value={newTransaction.TransactionID} onChange={(e) => handleNewInputChange('TransactionID', e.target.value)} inputStyle={{fontSize: '20px'}} />
                 <Calendar className='calendar' inputStyle={{fontSize: '20px'}} value={date} onChange={(e) => setDate(e.value)} />
              </div>
                
@@ -132,9 +140,10 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
                   <h3>
                     Reason:
                   </h3>
-                  <InputTextarea className='reason' inputStyle={{fontSize: '20px'}} autoResize value={value} onChange={(e) => setValue(e.target.value)} rows={5} cols={30} />
+                  <InputTextarea className='reason' inputStyle={{fontSize: '20px'}} autoResize value={newTransaction.Reason}
+  onChange={(e) => handleNewInputChange('Reason', e.target.value)} rows={5} cols={30} />
                   </div>
-                  <Button  className='confirmc' label='Confirm' />
+                  <Button  className='confirmc' label='Confirm' onClick={handleConfirm}  />
               </div>
             
 

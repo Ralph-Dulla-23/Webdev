@@ -16,6 +16,8 @@ import Request from './Pages/Request/Request.jsx'
 import UItem from './Pages/UpdateItems/UItem.jsx'
 import Pending from './Pages/Request/Pending.jsx'
 import ScanB from './Pages/Scan/ScanB.jsx'
+import ScanRequestAdmin from './Pages/Scan/ScanRequestAdmin.jsx'
+import ScanDeadline from './Pages/Scan/ScanDeadline.jsx'
 
 
 import {createBrowserRouter,RouterProvider} from "react-router-dom";
@@ -53,7 +55,6 @@ const router = createBrowserRouter([
     path: "/Borrow",
     element: <Borrow />,
   },
-
   {
     path: "/Scan",
     element: <Scan />
@@ -94,6 +95,15 @@ const router = createBrowserRouter([
     path: "/Pending",
     element: <Pending />
   },
+  {
+    path: "/ScanDeadline",
+    element: <ScanDeadline />
+  },
+  {
+    path: "/ScanRequestAdmin",
+    element: <ScanRequestAdmin />
+  },
+  
 
 
 ]);

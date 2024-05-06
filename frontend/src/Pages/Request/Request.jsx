@@ -27,6 +27,8 @@ function Request() {
   const hanldeRequestUserClick = () => navigate('/Request-User');
   const hanldeRequestAdminClick = () => navigate('/Request-Admin');
   const handleRequestClick = () => navigate('/Request');
+  const handleScanDeadline = () => navigate('/ScanDeadline');
+  const handleRequestAdmin = () => navigate('/ScanRequestAdmin');
 
   const handleLogout = () => {
     document.getElementById("logoutConfirmation").style.display = "block";
@@ -115,9 +117,9 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
             <div className="lower">
                  <div className="Requestbuttons">
                  <div className="card flex justify-content-center">
-            <Button className='rbtn1' label="Request User" onClick={hanldeRequestUserClick} />
+            <Button className='rbtn1' label="Request for Deadline" onClick={handleScanDeadline} />
         </div>
-            <Button className='rbtn1' label="Request Admin" onClick={hanldeRequestAdminClick} />
+            <Button className='rbtn1' label="Request Admin" onClick={handleRequestAdmin} />
                  </div>
             </div>
             
