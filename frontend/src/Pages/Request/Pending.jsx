@@ -11,7 +11,7 @@ function Pending() {
 
   const fetchData = async () => {
     try {
-      const result = await axios("http://localhost:3206/getTransactions");
+      const result = await axios("http://127.0.0.1:8000/forRequest");
       setTransactions(result.data);
     } catch (err) {
       console.log("Error with axios", err);
@@ -53,21 +53,24 @@ function Pending() {
               </tr>
             </thead>
             <tbody>
-              {transactions.map((transaction) => (
-                <tr key={transaction.TransactionID}>
-                  <td>{transaction.TransactionID}</td>
-                  <td>{transaction.Date}</td>
-                  <td>{transaction.Reason}</td>
-                  <td>
-                    {transaction.Status === "Pending" && (
-                      <>
-                        <button className='btnaccept' onClick={() => handleAccept(transaction.TransactionID)}>Accept</button>
-                        <button className='btndecline' onClick={() => handleDecline(transaction.TransactionID)}>Decline</button>
-                      </>
-                    )}
+            {
+                    transactions.map((transaction, i) => {
+                      return (
+                        <tr key={i}>
+                          <td className='itemid'>{transaction.TransactionID}</td>
+                          <td className='itemid'>{transaction.Deadline}</td>
+                          <td className='itemid'>{transaction.Reason}</td>
+                          <td className='itemid'>
+                    
+                        <button id='bgbtn' className='btnaccept' onClick={() => handleAccept(transaction.TransactionID)}>Accept</button>
+                        <button id='bgbtn' className='btndecline' onClick={() => handleDecline(transaction.TransactionID)}>Decline</button>
+                    
+                    
                   </td>
-                </tr>
-              ))}
+                        </tr>
+                      )
+                    })
+                  }
             </tbody>
           </table>
         </div>

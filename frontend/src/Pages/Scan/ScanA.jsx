@@ -22,7 +22,7 @@ function Scan() {
 
  const fetchData = async () => {
   try {
-    const result = await axios("http://localhost:3206/getAdmin");
+    const result = await axios("http://127.0.0.1:8000/getAdmin");
      console.log(result.data.map(res => res.ID));
      setIDs(result.data.map(res => res.ID));
  }catch (err) {

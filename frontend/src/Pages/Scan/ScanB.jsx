@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Return from '../Return/Return'
 import React, { useState, useEffect } from 'react';    
 import { Button } from 'primereact/button';  
 import { InputNumber } from 'primereact/inputnumber';
@@ -17,7 +18,7 @@ function ScanR() {
  
   const fetchData = async () => {
     try {
-      const result = await axios("http://localhost:3206/getBorrowing");
+      const result = await axios("http://127.0.0.1:8000/getNonBorrower");
        console.log(result.data.map(res => res.ID));
        setIDs(result.data.map(res => res.ID));
    }catch (err) {
@@ -36,10 +37,17 @@ function ScanR() {
     
   }
   const handleReturnClick = () =>{
-
-      navigate('/Return')
+    
+    console.log('clicked');
+    const input = document.getElementById('inputID');
+    console.log(input.value);
+    if(IDs.includes(input.value)) {
+      navigate('/Dashboard')
       
- 
+   }else{
+    alert(`ID number may have not yet returned an Item or the ID number does not exist!`)
+   }
+    
   };
   
   const handleScanClick = () => navigate('/Scan');
@@ -51,16 +59,10 @@ function ScanR() {
   const hanldeRequestAdminClick = () => navigate('/Request-Admin');
   const handleRequestClick = () => navigate('/Request');
   const handleLogout = () => {
-    document.getElementById("logoutConfirmation").style.display = "block";
-  };
-
-  const handleConfirmLogout = () => {
+    // Clear user ID from localStorage
     localStorage.removeItem('user_id');
+    // Navigate back to the first scan page
     navigate('/Scan');
-  };
-
-  const handleCancelLogout = () => {
-    document.getElementById("logoutConfirmation").style.display = "none";
   };
 
 
@@ -130,7 +132,9 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
             <h4>Hello Please Input ID First</h4>
             
                 <InputText className='inputID' placeholder="Input ID" id="inputID" value={value} onValueChange={(e) => setValue(e.value)} />
+                
                 <Button className='tn' label="Confirm" onClick={handleReturnClick}/>
+                
         </div>
          
           <footer>
@@ -140,7 +144,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
             
         </div>
     </footer>
-    
+
     </div>
     </>
   )

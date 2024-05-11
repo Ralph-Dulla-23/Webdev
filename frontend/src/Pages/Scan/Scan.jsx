@@ -18,17 +18,19 @@ function Scan() {
 
   useEffect(() => {
     fetchData();
- },[]);
+  }, []);
 
- const fetchData = async () => {
-  try {
-    const result = await axios("http://localhost:3206/getAdmin");
-     console.log(result.data.map(res => res.ID));
+   const fetchData = async () => {
+    try {
+      const result = await axios("http://127.0.0.1:8000/getAdmin");
+      console.log(result.data.map(res => res.ID));
      setIDs(result.data.map(res => res.ID));
- }catch (err) {
+    } catch (err) {
       console.log("Error with axios")
- }
-}
+    }
+   }
+
+  
 
   const defaultValues = {
     value: ''
@@ -88,7 +90,7 @@ function Scan() {
 s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
 ,100..700,0..1,-50..200" />
 
-<div className="WholeContent">
+<div data-testid="startSystem-test" className="WholeContent">
 <Controller
   name="value"
   control={control}
@@ -100,6 +102,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
       </span>
       <h4>Hello Please Input ID First</h4>
       <InputText
+       data-testid="startSystemInput-test"
        inputStyle={{ margin: '5px' }}
        id="inputID"
        className={classNames('inputID', { 'p-invalid': fieldState.error })}
@@ -111,6 +114,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
         <small className="p-error">{fieldState.error.message}</small>
       )}
       <Button
+        data-testid="startSystemButton-test"
         className='tn'
         label="Confirm"
         onClick={handleSubmit(handleDashboardClick)} // Use handleSubmit from react-hook-form

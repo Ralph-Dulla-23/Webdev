@@ -14,6 +14,10 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("dapat kausa lang ni mogawas");
+  }, []);
+  
+  useEffect(() => {
     fetchData();
  },[])//fetching backend 2
 
@@ -66,13 +70,13 @@ function App() {
   return (
     <div>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-      <div className="WholeContent">
+      <div data-testid="Dashboard-test" className="WholeContent">
         <aside>
           <div className="aside">
             <div className="sidebar">
               <div className="pfp">
                 <div className="username">
-                  <h1>Hillbert Tan</h1>
+                  <h1 >Hillbert Tan</h1>
                 </div>
               </div>
               <div className="sidebuttons">
@@ -112,7 +116,7 @@ function App() {
           </div>
           <div className="lower">
             <div className="card custom-datatable">
-              <table>
+              <table data-testid="Table">
                 <thead>
                   <tr>
                     <th className='yes'>Transaction ID</th>

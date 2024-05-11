@@ -26,7 +26,7 @@ function Borrow() {
 
    const fetchData = async () => {
     try {
-      const result = await axios("http://localhost:3206/getAvail");
+      const result = await axios("http://127.0.0.1:8000/getAvailable");
       console.log(result);
       setItems(result.data);
     } catch (err) {
@@ -151,7 +151,7 @@ function Borrow() {
                         optionValue="ItemName"
                         options={multiselectValues.filter(item => item.Quantity > 0)}
                         itemTemplate={(option: InputValue) => ( 
-                          <div>
+                          <div >
                             <div>{option.ItemName}</div>
                             <div>Quantity: {option.Quantity}</div>
                           </div>
@@ -170,7 +170,7 @@ function Borrow() {
                 </div>
                 <div className="lowertable">
                   <div className="borrowbtn">
-                    <Button className='btn' label="Borrow" onClick={handleBorrowBtn}  />
+                    <Button data-testid="Borrow-test" className='btn' label="Borrow" onClick={handleBorrowBtn}  />
                   </div>
                 </div>
               </div>

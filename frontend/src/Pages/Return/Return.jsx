@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { MultiSelect } from 'primereact/multiselect';
-import React, { useState } from 'react';    
+import React, { useState, useEffect, useContext } from 'react';    
 import { Message } from 'primereact/message';
 import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
@@ -8,13 +8,36 @@ import { InputNumber } from 'primereact/inputnumber';
 import { useRef } from 'react';
 import { Toast } from 'primereact/toast';
 import { InputText } from 'primereact/inputtext';
+import { AuthContext } from '../../auth/authContext';
+import axios from 'axios';
 
 
 function Return() {
+  const [borrowedItems, setItems] = useState([]);
+  const [selectedDrop, setSelectedDrop] = useState(null);
   const [value1, setValue1] = useState(0);
   const [selectedItem, setSelectedItem] = useState(null);
-  const items = Array.from({ length: 100000 }).map((_, i) => ({ label: `Item #${i}`, value: i }));
   const [message, setMessage] = useState(null);
+  const {ID, setID}=useContext(AuthContext);//auth
+  const [multiselectValue, setMultiselectValue] = useState(null);
+
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      
+      const bID = String(ID);
+      console.log(bID)
+      const result = await axios(`http://127.0.0.1:8000/GetItemBorrowing/${bID}`);
+      console.log(result.data);
+      setItems(result.data);
+    } catch (err) {
+      console.log("Error with axios")
+    }
+   }
 
   const toast = useRef(null);
 
@@ -22,22 +45,36 @@ function Return() {
       toast.current.show({severity:'success', summary: 'Success', detail:'Message Content', life: 3000});
   }
 
+  const itemTemplate = (option) => {
+    // Customize the template here to display all properties of each object
+    return (
+        <div>
+            <div>{`TransactionID:   ${option.TransactionID}`}</div>
+            <div>{`Quantity:   ${option.Quantity}`}</div>
+            <div>{`ItemName:   ${option.ItemName}`}</div>
+            {/* Add more properties as needed */}
+        </div>
+    );
+};
+
   const navigate = useNavigate();
 
-  const handleHomeClick = () => navigate('/Dashboard');
-  const handleBorrowClick = () => navigate('/Borrow');
-  const handleReturnClick = () => {
-    if (selectedItem && value1) {
-      // Perform any additional logic if needed
-      console.log('Item borrowed:', selectedItem, 'Quantity:', value1);
-      // Navigate to the Return page
-      navigate('/Return');
-      toast.current.show({severity:'success', summary: 'Success', detail:'Message Content', life: 3000});
+  const handleHomeClick = async (e) => {
+    e.preventDefault();
+  try {
+    const tID = String(selectedItem.TransactionID); 
+    const response = await axios.put(`http://127.0.0.1:8000/ReturningItem/${tID}`);
+    navigate('/Dashboard');
+  } catch (err) {
+    if (err.response) {
+      console.log("Error with Returning", err.response.status, err.response.data); // Log detailed error information if available
     } else {
-      // Show a validation message
-      setMessage({ severity: 'error', summary: 'Validation Error', detail: 'Please fill in all required fields!' });
-    }
-  };
+      console.log("Error with Returning", err); // Log general error message
+    }}
+};
+
+  const handleBorrowClick = () => navigate('/Borrow');
+  
 
   const handleLogout = () => {
     document.getElementById("logoutConfirmation").style.display = "block";
@@ -52,19 +89,15 @@ function Return() {
     document.getElementById("logoutConfirmation").style.display = "none";
   };
   
-
-  const handleScanClick = () => navigate('/Scan');
+  const handleDash= () => navigate('/Dashboard');
   const handleScanRClick = () => navigate('/ScanR');
   const handleUpdateItemsClick = () => navigate('/Update-Items');
-  const hanldeRequestUserClick = () => navigate('/Request-User');
-  const hanldeRequestAdminClick = () => navigate('/Request-Admin');
   const handleRequestClick = () => navigate('/Request');
 
 
 
   return (
     <>
-
 <link rel="stylesheet" href="https://fonts.googleapis.com/cs
 s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
 ,100..700,0..1,-50..200" />
@@ -81,7 +114,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
               </div>
               </div>
              <div className="sidebuttons">
-            <a onClick={handleHomeClick}>
+            <a onClick={handleDash}>
               <span className="material-symbols-outlined" >
                 home
               </span>
@@ -138,8 +171,12 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
                   <div className="Items">
                         <h2>Items Borrowed</h2>
                         <div className="card flex justify-content-center">
-                  <Dropdown value={selectedItem} onChange={(e) => setSelectedItem(e.value)} options={items} virtualScrollerOptions={{ itemSize: 38 }} 
-                      placeholder="Select Item" className="itemlist" />
+                  <Dropdown value={selectedItem} onChange={(e) => setSelectedItem(e.value)} options={borrowedItems} optionLabel="TransactionID" 
+                      placeholder="Select Item" className="itemlist" itemTemplate={itemTemplate} />
+
+                  
+
+                  
              </div>
                         
                     </div>

@@ -6,73 +6,105 @@ import { Button } from 'primereact/button';
 function Uitem() {
   const [items, setItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
-  const [newItem, setNewItem] = useState({ ItemName: "", FromLab: "", ItemDescription: "", Quantity: ""});
+  const [valueName, setValueName] = useState('');
+  const [valueFromLAb, setFromLab] = useState('');
+  const [valueDesc, setItemDesc] = useState('');
+  const [valueQuan, setValueQuan] = useState('');
+  const [valueTotal, setValueTotal] = useState('');
+  const [editValueName, setEditValueName] = useState('');
+  const [editValueFromLab, setEditValueFromLab] = useState('');
+  const [editValueDesc, setEditValueDesc] = useState('');
+  const [editValueQuan, setEditValueQuan] = useState('');
 
   useEffect(() => {
-    fetchData();
+    fetchData();  
   }, []);
 
   const fetchData = async () => {
     try {
-      const result = await axios("http://localhost:3206/getItems");
+      const result = await axios("http://127.0.0.1:8000/foritems");
       setItems(result.data);
     } catch (err) {
       console.log("Error with axios", err);
     }
   };
 
-  const handleRowClick = (item) => {
-    setSelectedItem({ ...item });
-  };
 
-  const handleEditChange = (key, value) => {
-    setSelectedItem(prev => ({ ...prev, [key]: value }));
+
+  
+  const handleRowClick = (item) => {
+    setSelectedItem(item);
+    setEditValueName(item.ItemName);
+    setEditValueFromLab(item.FromLab);
+    setEditValueDesc(item.ItemDescription);
+    setEditValueQuan(item.Quantity);
   };
 
   const handleEdit = async () => {
     if (selectedItem) {
       try {
-        await axios.put(`http://localhost:3206/updateItem/${selectedItem.ItemID}`, selectedItem);
-        fetchData();
-        setSelectedItem(null);
+        const response = await axios.put(`http://127.0.0.1:8000/EditItem/${selectedItem.ItemID}`, {
+          ItemName: editValueName,
+          FromLab: editValueFromLab,
+          ItemDescription: editValueDesc,
+          Quantity: editValueQuan,
+        });
+  
+        if (response.status === 200) {
+          alert('Item Updated Successfully!');
+          fetchData();
+          setSelectedItem(null);
+        } else {
+          console.error('Failed to update item');
+        }
       } catch (err) {
-        console.log("Error updating item", err);
       }
     }
   };
 
-  const handleDelete = async () => {
+
+  const handleDelete = async () => {  
     if (selectedItem) {
       try {
-        await axios.delete(`http://localhost:3206/deleteItem/${selectedItem.ItemID}`);
-        setItems(items.filter(item => item.ItemID !== selectedItem.ItemID));
-        setSelectedItem(null);
+        const response = await axios.delete(`http://127.0.0.1:8000/DeleteItem/${selectedItem.ItemID}`);
+        
+        if (response.status === 200) {
+          alert('Item Deleted Successfully!');
+          setItems(items.filter(item => item.ItemID !== selectedItem.ItemID));
+          setSelectedItem(null);
+        } else {
+          console.error('Failed to delete item');
+        }
       } catch (err) {
-        console.log("Error deleting item", err);
+        
       }
     }
-  };
-
-  const handleNewInputChange = (key, value) => {
-    setNewItem(prev => ({ ...prev, [key]: value }));
   };
 
   const handleAdd = async () => {
     try {
-      const response = await axios.post("http://localhost:3206/CreateItem", newItem);
-      setItems([...items, response.data]);
-      setNewItem({ ItemName: "", FromLab: "", ItemDescription: "", Quantity: "" });
-    } catch (err) {
-      console.log("Error adding item", err);
+      const response = await axios.post("http://127.0.0.1:8000/CreateItem", {
+        ItemName: valueName,
+        ItemFromLab: valueFromLAb,
+        ItemDescription: valueDesc,
+        Quantity: valueQuan,
+        Total_Quantity: valueTotal,
+      });
+
+      
+      if(response.status == 200){
+        alert('Item Created Successfully!')
+      }
+    } catch (error){
+      console.error('Error In Creating Item');
     }
   };
-
   return (
     <div>
       <h1>Item Management</h1>
       <div className="master-detail-container">
         <div className="master-section">
-          <table className="dtuitem">
+          <table data-testid="UItem-test" className="dtuitem">
             <thead>
               <tr>
                 <th>Item Name</th>
@@ -99,26 +131,26 @@ function Uitem() {
           {selectedItem && (
             <div>
               <h2>Edit Item</h2>
-              <InputText className="inputadd" value={selectedItem.ItemName} onChange={(e) => handleEditChange('ItemName', e.target.value)} />
-              <InputText className="inputadd" value={selectedItem.FromLab} onChange={(e) => handleEditChange('FromLab', e.target.value)} />
-              <InputText className="inputadd" value={selectedItem.ItemDescription} onChange={(e) => handleEditChange('ItemDescription', e.target.value)} />
-              <InputText className="inputadd" value={selectedItem.Quantity} onChange={(e) => handleEditChange('Quantity', e.target.value)} />
+              <InputText className="inputadd" value={editValueName} onChange={(e) => setEditValueName(e.target.value)} />
+              <InputText className="inputadd" value={editValueFromLab} onChange={(e) => setEditValueFromLab(e.target.value)} />
+              <InputText className="inputadd" value={editValueDesc} onChange={(e) => setEditValueDesc(e.target.value)} />
+              <InputText className="inputadd" value={editValueQuan} onChange={(e) => setEditValueQuan(e.target.value)} />
               <Button className="btnadd" label="Save" onClick={handleEdit} />
               <Button className="btnadd" label="Delete" onClick={handleDelete} />
             </div>
           )}
           <div>
             <h2>Add Item</h2>
-            <InputText className="inputadd" value={newItem.ItemName} onChange={(e) => handleNewInputChange('ItemName', e.target.value)} placeholder="Name" />
-            <InputText className="inputadd" value={newItem.FromLab} onChange={(e) => handleNewInputChange('FromLab', e.target.value)} placeholder="From Lab" />
-            <InputText className="inputadd" value={newItem.ItemDescription} onChange={(e) => handleNewInputChange('ItemDescription', e.target.value)} placeholder="Description" />
-            <InputText className="inputadd" value={newItem.Quantity} onChange={(e) => handleNewInputChange('Quantity', e.target.value)} placeholder="Quantity" />
+            <InputText className="inputadd" value={valueName} onChange={(e) => setValueName(e.target.value)} placeholder="Name" />
+            <InputText className="inputadd" value={valueFromLAb} onChange={(e) => setFromLab( e.target.value)} placeholder="From Lab" />
+            <InputText className="inputadd" value={valueDesc} onChange={(e) => setItemDesc( e.target.value)} placeholder="Description" />
+            <InputText className="inputadd" value={valueQuan} onChange={(e) => setValueQuan( e.target.value)} placeholder="Quantity" />
+            <InputText className="inputadd" value={valueTotal} onChange={(e) => setValueTotal( e.target.value)} placeholder="Total Quantity" />
             <Button className="btnadd" label="Add" onClick={handleAdd} />
           </div>
         </div>
       </div>
-    </div>
-    
+    </div> 
   );
 }
 
