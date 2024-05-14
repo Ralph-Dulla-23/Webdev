@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/client'
 
 import Dashboard from './Dashboard.jsx'
 import Return from './Pages/Return/Return.jsx'
-import Borrow from './Pages/Borrow/Borrow.tsx'
+import Borrow from './Pages/Borrow/Borrow.jsx'
 
 import Scan from './Pages/Scan/Scan.jsx'
 import ScanR from './Pages/Scan/ScanR.jsx'
@@ -18,6 +18,7 @@ import Pending from './Pages/Request/Pending.jsx'
 import ScanB from './Pages/Scan/ScanB.jsx'
 import ScanRequestAdmin from './Pages/Scan/ScanRequestAdmin.jsx'
 import ScanDeadline from './Pages/Scan/ScanDeadline.jsx'
+import AuthProvider from './auth/authContext.jsx'
 
 
 import {createBrowserRouter,RouterProvider} from "react-router-dom";
@@ -110,6 +111,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-   <RouterProvider router={router} />
+   <AuthProvider>
+      <RouterProvider router={router}/>
+    </AuthProvider>
   </React.StrictMode>,
 )

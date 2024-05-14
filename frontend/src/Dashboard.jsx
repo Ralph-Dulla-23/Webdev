@@ -10,9 +10,33 @@ import { table } from "./Pages/table.jsx";
 import { InputText } from "primereact/inputtext";
 
 function App() {
+  const [AdminIDs, setIDs] = useState([]);
+
+  const fetchData2 = async () => {
+    try {
+      const result = await axios("http://127.0.0.1:8000/getAdmin");
+      console.log(result.data.map(res => res.ID));
+     setIDs(result.data.map(res => res.ID));
+    } catch (err) {
+      console.log("Error with axios")
+    }
+   }
+  
+  
+  useEffect(() => {
+    fetchData2();
+  },[]);
+
+  
+
+
   const [products, setProducts] = useState([]);//for data backend 1
   const navigate = useNavigate();
 
+  useEffect(() => {
+    console.log("dapat kausa lang ni mogawas");
+  }, []);
+  
   useEffect(() => {
     fetchData();
  },[])//fetching backend 2
@@ -26,6 +50,8 @@ function App() {
       console.log("Error with axios")
   }
 }//backend 3
+
+
 
   useEffect(() => {
     // Check if the user has visited the Scan page before
@@ -43,8 +69,17 @@ function App() {
   };
 
   const handleConfirmLogout = () => {
-    localStorage.removeItem('user_id');
-    navigate('/Scan');
+
+    console.log('clicked');
+    const input = document.getElementById('inputID');
+    console.log(input.value);
+    if(AdminIDs.includes(input.value)) {
+      localStorage.removeItem('user_id');
+      navigate('/Scan');
+   }else{
+    alert(`This ID does not belong to an Admin`)
+   }
+    
   };
 
   const handleCancelLogout = () => {
@@ -66,13 +101,13 @@ function App() {
   return (
     <div>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-      <div className="WholeContent">
+      <div data-testid="Dashboard-test" className="WholeContent">
         <aside>
           <div className="aside">
             <div className="sidebar">
               <div className="pfp">
                 <div className="username">
-                  <h1>Hillbert Tan</h1>
+                  <h1 >Hillbert Tan</h1>
                 </div>
               </div>
               <div className="sidebuttons">
@@ -112,7 +147,7 @@ function App() {
           </div>
           <div className="lower">
             <div className="card custom-datatable">
-              <table>
+              <table data-testid="Table">
                 <thead>
                   <tr>
                     <th className='yes'>Transaction ID</th>
@@ -154,7 +189,7 @@ function App() {
         
     
           <p className='cfm'>Need Admin ID to logout</p>
-          <InputText className='inputID'></InputText>
+          <InputText id="inputID" className='inputID'></InputText>
           <div className="btn-group">
             <button  type="button" className="btncancel" onClick={handleCancelLogout}>Cancel</button>
             <button  type="button" className="btnconfirm" onClick={handleConfirmLogout}>Confirm</button>

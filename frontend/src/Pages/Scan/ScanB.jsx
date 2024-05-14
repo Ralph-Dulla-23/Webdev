@@ -1,15 +1,19 @@
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';    
+import Return from '../Return/Return'
+import React, { useState, useEffect, useContext } from 'react';    
 import { Button } from 'primereact/button';  
 import { InputNumber } from 'primereact/inputnumber';
 import { InputText } from "primereact/inputtext"; // Import InputText
+import { AuthContext } from '../../auth/authContext';//needed auth
         
 
 function ScanR() {
   const [IDs, setIDs] = useState([]);
   const [value, setValue] = useState();
   const [value1, setValue1] = useState(0);
+  const {SelectedAvailableItem, setSelectedAvailableItem}=useContext(AuthContext);
+  const {QuantitySelected, setSelectedQuantity}=useContext(AuthContext);
 
   useEffect(() => {
     fetchData();
@@ -17,7 +21,7 @@ function ScanR() {
  
   const fetchData = async () => {
     try {
-      const result = await axios("http://localhost:3206/getBorrowing");
+      const result = await axios("http://127.0.0.1:8000/getNonBorrower");
        console.log(result.data.map(res => res.ID));
        setIDs(result.data.map(res => res.ID));
    }catch (err) {
@@ -32,15 +36,42 @@ function ScanR() {
   const navigate = useNavigate();
   const handleHomeClick = () => navigate('/Dashboard');
   const handleBorrowClick = () => navigate('/Borrow');
-  const change = event =>{
-    
-  }
+  
   const handleReturnClick = () =>{
-
-      navigate('/Return')
+    
+    console.log('clicked');
+    const input = document.getElementById('inputID');
+    console.log(input.value);
+    if(IDs.includes(input.value)) {
+    // const response = await axios.put(`http://127.0.0.1:8000/CreateBorrowTransaction/02/3/1`);
+    navigate('/Dashboard')
       
- 
+   }else{
+    alert(`ID number may have not yet returned an Item or the ID number does not exist!`)
+   }
+    
   };
+
+  const handleTransactionClick = async (e) => {
+    e.preventDefault();
+  try {
+    console.log('clicked');
+    const input = document.getElementById('inputID');
+    console.log(input.value);
+    
+    if(IDs.includes(input.value)) {
+     const response = await axios.post(`http://127.0.0.1:8000/CreateBorrowTransaction/${input.value}/${SelectedAvailableItem}/${QuantitySelected}`);
+     navigate('/Dashboard')
+   }else{
+    alert(`ID number may have not yet returned an Item or the ID number does not exist!`)
+   }
+  } catch (err) {
+    if (err.response) {
+      console.log("Error with Borrowing", err.response.status, err.response.data); // Log detailed error information if available
+    } else {
+      console.log("Error with Borrowing", err); // Log general error message
+    }}
+};
   
   const handleScanClick = () => navigate('/Scan');
   const handleScanRClick = () => navigate('/ScanR');
@@ -51,16 +82,10 @@ function ScanR() {
   const hanldeRequestAdminClick = () => navigate('/Request-Admin');
   const handleRequestClick = () => navigate('/Request');
   const handleLogout = () => {
-    document.getElementById("logoutConfirmation").style.display = "block";
-  };
-
-  const handleConfirmLogout = () => {
+    // Clear user ID from localStorage
     localStorage.removeItem('user_id');
+    // Navigate back to the first scan page
     navigate('/Scan');
-  };
-
-  const handleCancelLogout = () => {
-    document.getElementById("logoutConfirmation").style.display = "none";
   };
 
 
@@ -72,14 +97,15 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
 ,100..700,0..1,-50..200" />
 
     <div className="WholeContent">
-
+{console.log(SelectedAvailableItem)}
+{console.log(QuantitySelected)}
     <aside>
           <div className="aside">
             <div className="sidebar">
               <div className="pfp" >
              
               <div className="username">
-              <h1>Hillbert Tan</h1>    
+              <h1>GearGuards</h1>    
               </div>
               </div>
              <div className="sidebuttons">
@@ -130,7 +156,9 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
             <h4>Hello Please Input ID First</h4>
             
                 <InputText className='inputID' placeholder="Input ID" id="inputID" value={value} onValueChange={(e) => setValue(e.value)} />
-                <Button className='tn' label="Confirm" onClick={handleReturnClick}/>
+                
+                <Button className='tn' label="Confirm" onClick={handleTransactionClick}/>
+                
         </div>
          
           <footer>
@@ -140,7 +168,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
             
         </div>
     </footer>
-    
+
     </div>
     </>
   )

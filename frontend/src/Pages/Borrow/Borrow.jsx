@@ -12,7 +12,14 @@ import { AuthContext } from '../../auth/authContext';//needed auth
 import axios from 'axios';
 
 
-function Return() {
+function Borrow() {
+  const [availbleItems, setItems] = useState([]);
+  const [selectedDrop, setSelectedDrop] = useState(null);
+  const [value, setValue] = useState();
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [multiselectValue, setMultiselectValue] = useState(null);
+  const {SelectedAvailableItem, setSelectedAvailableItem}=useContext(AuthContext);
+  const {QuantitySelected, setSelectedQuantity}=useContext(AuthContext);
 
   const [AdminIDs, setIDs] = useState([]);
 
@@ -31,13 +38,6 @@ function Return() {
     fetchData2();
   },[]);
 
-  const [borrowedItems, setItems] = useState([]);
-  const [selectedDrop, setSelectedDrop] = useState(null);
-  const [value1, setValue1] = useState(0);
-  const [selectedItem, setSelectedItem] = useState(null);
-  const [message, setMessage] = useState(null);
-  const {ID, setID}=useContext(AuthContext);//auth
-  const [multiselectValue, setMultiselectValue] = useState(null);
 
 
   useEffect(() => {
@@ -47,9 +47,7 @@ function Return() {
   const fetchData = async () => {
     try {
       
-      const bID = String(ID);
-      console.log(bID)
-      const result = await axios(`http://127.0.0.1:8000/GetItemBorrowing/${bID}`);
+      const result = await axios(`http://127.0.0.1:8000/getAvailable`);
       console.log(result.data);
       setItems(result.data);
     } catch (err) {
@@ -67,9 +65,9 @@ function Return() {
     // Customize the template here to display all properties of each object
     return (
         <div>
-            <div>{`TransactionID:   ${option.TransactionID}`}</div>
-            <div>{`Quantity:   ${option.Quantity}`}</div>
             <div>{`ItemName:   ${option.ItemName}`}</div>
+            <div>{`Quantity:   ${option.Quantity}`}</div>
+            
             {/* Add more properties as needed */}
         </div>
     );
@@ -80,11 +78,8 @@ function Return() {
   const handleHomeClick = async (e) => {
     e.preventDefault();
   try {
-    const tID = String(selectedItem.TransactionID); 
-    const response = await axios.put(`http://127.0.0.1:8000/ReturningItem/${tID}`);
-    const response2 = await axios.put(`http://127.0.0.1:8000/ReturningAddItem/${selectedItem.ItemID}/${selectedItem.Quantity}`);
+
     navigate('/Dashboard');
-    console.log(selectedItem)
   } catch (err) {
     if (err.response) {
       console.log("Error with Returning", err.response.status, err.response.data); // Log detailed error information if available
@@ -94,6 +89,23 @@ function Return() {
 };
 
   const handleBorrowClick = () => navigate('/Borrow');
+
+  const handleScanB = () =>{
+    
+    console.log(selectedItem.ItemID);
+    console.log(selectedItem.Quantity);
+    console.log(value);
+    if(value <= selectedItem.Quantity && value >= 1 ) {
+      console.log(`less or equal`);
+      setSelectedAvailableItem(selectedItem.ItemID);
+      setSelectedQuantity(value);
+      navigate('/ScanB')
+      
+   }else{
+    console.log(`invalid quantity`)
+   }
+    
+  };
   
 
   const handleLogout = () => {
@@ -123,14 +135,14 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
 ,100..700,0..1,-50..200" />
 
     <div className="WholeContent">
-{console.log(ID)}
+
     <aside>
           <div className="aside">
             <div className="sidebar">
               <div className="pfp" >
                
               <div className="username">
-              <h1>Hillbert Tan</h1>    
+              <h1>GearGuard</h1>    
               </div>
               </div>
              <div className="sidebuttons">
@@ -181,7 +193,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
               
                <div className="logo">
                 </div>
-                <h1>Return Screen</h1> 
+                <h1>Borrow Screen</h1> 
               </div>
             
             <div className="lower">
@@ -189,9 +201,9 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
                  <div className="return">
                   <div className="uppertable">
                   <div className="Items">
-                        <h2>Items Borrowed</h2>
+                        <h2>Available Items</h2>
                         <div className="card flex justify-content-center">
-                  <Dropdown value={selectedItem} onChange={(e) => setSelectedItem(e.value)} options={borrowedItems} optionLabel="TransactionID" 
+                  <Dropdown value={selectedItem} onChange={(e) => setSelectedItem(e.value)} options={availbleItems} optionLabel="ItemName" 
                       placeholder="Select Item" className="itemlist" itemTemplate={itemTemplate} />
 
                   
@@ -201,17 +213,17 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
                         
                     </div>
                     <div className="quantity">
-                      <h2>Quantity Borrowed:</h2>
+                      <h2>Quantity:</h2>
                     </div>
                     <div className="card flex justify-content-center">
                     <div className="flex-auto">
-                    <InputNumber className='quantityitems' inputId="integeronly" value={value1} onValueChange={(e) => setValue1(e.value)} />
+                    <InputNumber id="Quantity" className='quantityitems' inputId="integeronly" value={value} onValueChange={(e) => setValue(e.value)} />
                      </div>
                     </div>
                   </div>
                   <div className="lowertable">
                     <div className="borrowbtn">
-                    <Button className='rbtn' label="Return" onClick={handleHomeClick} />
+                    <Button className='rbtn' label="Borrow" onClick={handleScanB} />
                       
                     </div>
                   </div>
@@ -244,4 +256,4 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
   )
 }
 
-export default Return
+export default Borrow
