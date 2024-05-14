@@ -7,13 +7,31 @@ import { Password } from 'primereact/password';
 
 import { InputText } from 'primereact/inputtext';
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 
 import { Button } from 'primereact/button';
                 
 
 function Request() {
+
+  const [AdminIDs, setIDs] = useState([]);
+
+  const fetchData2 = async () => {
+    try {
+      const result = await axios("http://127.0.0.1:8000/getAdmin");
+      console.log(result.data.map(res => res.ID));
+     setIDs(result.data.map(res => res.ID));
+    } catch (err) {
+      console.log("Error with axios")
+    }
+   }
+  
+  
+  useEffect(() => {
+    fetchData2();
+  },[]);
+
 
  
    

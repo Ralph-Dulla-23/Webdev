@@ -10,6 +10,23 @@ import { InputText } from "primereact/inputtext"; // Import InputText
 import { classNames } from 'primereact/utils'; // Import classNames
 
 function Scan() {
+  const [AdminIDs, setAdminIDs] = useState([]);
+
+  const fetchData2 = async () => {
+    try {
+      const result = await axios("http://127.0.0.1:8000/getAdmin");
+      console.log(result.data.map(res => res.ID));
+     setAdminIDs(result.data.map(res => res.ID));
+    } catch (err) {
+      console.log("Error with axios")
+    }
+   }
+  
+  
+  useEffect(() => {
+    fetchData2();
+  },[]);
+  
   const [IDs, setIDs] = useState([]);
   const [value, setValue] = useState('');
   const [isInputValid, setIsInputValid] = useState(true);
@@ -22,7 +39,7 @@ function Scan() {
 
  const fetchData = async () => {
   try {
-    const result = await axios("http://localhost:3206/getAdmin");
+    const result = await axios("http://127.0.0.1:8000/getAdmin");
      console.log(result.data.map(res => res.ID));
      setIDs(result.data.map(res => res.ID));
  }catch (err) {
@@ -63,7 +80,7 @@ function Scan() {
     console.log(input.value);
     if(IDs.includes(input.value)) {
       console.log('dassad')
-      navigate('/Dashboard')
+      navigate('/Request-Admin')
       
    }else{
     alert(`This ID does not belong to an Admin`)
@@ -80,8 +97,6 @@ function Scan() {
   const hanldeRequestUserClick = () => navigate('/Request-User');
   const hanldeRequestAdminClick = () => navigate('/Request-Admin');
   const handleRequestClick = () => navigate('/Request');
-  const handleScanDeadline = () => navigate('/ScanDeadline');
-  const handleRequestAdmin = () => navigate('/ScanRequestAdmin');
 
   return (
     <>
@@ -115,7 +130,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
       <Button
         className='tn'
         label="Confirm"
-        onClick={handleSubmit(handleRequestAdmin)} // Use handleSubmit from react-hook-form
+        onClick={handleSubmit(handleDashboardClick)} // Use handleSubmit from react-hook-form
       />
     </div>
   )}

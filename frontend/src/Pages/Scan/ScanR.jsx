@@ -1,15 +1,34 @@
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';    
+import React, { useState, useEffect, useContext } from 'react';    
 import { Button } from 'primereact/button';  
 import { InputNumber } from 'primereact/inputnumber';
 import { InputText } from "primereact/inputtext"; // Import InputText
+import { AuthContext } from '../../auth/authContext';//auth
         
 
 function ScanR() {
+  const [AdminIDs, setAdminIDs] = useState([]);
+
+  const fetchData2 = async () => {
+    try {
+      const result = await axios("http://127.0.0.1:8000/getAdmin");
+      console.log(result.data.map(res => res.ID));
+     setAdminIDs(result.data.map(res => res.ID));
+    } catch (err) {
+      console.log("Error with axios")
+    }
+   }
+  
+  
+  useEffect(() => {
+    fetchData2();
+  },[]);
+  
   const [IDs, setIDs] = useState([]);
   const [value, setValue] = useState();
   const [value1, setValue1] = useState(0);
+  const {ID, setID}=useContext(AuthContext);//auth
 
   useEffect(() => {
     fetchData();
@@ -41,7 +60,7 @@ function ScanR() {
     const input = document.getElementById('inputID');
     console.log(input.value);
     if(IDs.includes(input.value)) {
-      console.log('dassad')
+      setID(input.value)
       navigate('/Return')
       
    }else{

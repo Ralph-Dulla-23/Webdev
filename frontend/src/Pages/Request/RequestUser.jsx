@@ -1,19 +1,46 @@
 
 import { useNavigate } from 'react-router-dom';
 import { Calendar } from 'primereact/calendar';
+import { Dropdown } from 'primereact/dropdown';
 import { Password } from 'primereact/password';
 import { InputTextarea } from "primereact/inputtextarea";
 import { InputNumber } from 'primereact/inputnumber';
 import { InputText } from 'primereact/inputtext';
-        
-
-import React, { useState } from "react";
+import { AuthContext } from '../../auth/authContext';//needed auth
+import axios from 'axios';
+import React, { useState, useEffect, useContext } from "react";
 
 
 import { Button } from 'primereact/button';
                 
 
 function RequestUser({ onConfirm }) {
+  const {ID, setID}=useContext(AuthContext);//auth
+  const [valueReason, setValueReason] = useState('');
+  const [borrowedItems, setItems] = useState([]);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [ValuePend] = useState("Pending");
+
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      
+      const bID = String(ID);
+      console.log(bID)
+      const result = await axios(`http://127.0.0.1:8000/GetItemBorrowing/${bID}`);
+      console.log(result.data);
+      setItems(result.data);
+    } catch (err) {
+      console.log("Error with axios")
+    }
+   }
+
+
+
   const [newTransaction, setNewTransaction] = useState({ TransactionID: "", Reason: "", Action: "", Date: null });
     const handleNewInputChange = (key, value) => {
       setNewTransaction(prevState => ({
@@ -21,8 +48,20 @@ function RequestUser({ onConfirm }) {
         [key]: value
       }));
     };
+
+    const itemTemplate = (option) => {
+      // Customize the template here to display all properties of each object
+      return (
+          <div>
+              <div>{`TransactionID:   ${option.TransactionID}`}</div>
+              <div>{`Quantity:   ${option.Quantity}`}</div>
+              <div>{`ItemName:   ${option.ItemName}`}</div>
+              {/* Add more properties as needed */}
+          </div>
+      );
+  };
   const [value, setValue] = useState('');
-  const [date, setDate] = useState(null);
+  const [date, setDate] = useState('');
   const navigate = useNavigate();
   const handleHomeClick = () => navigate('/Dashboard');
   const handleBorrowClick = () => navigate('/Borrow');
@@ -47,11 +86,28 @@ function RequestUser({ onConfirm }) {
     document.getElementById("logoutConfirmation").style.display = "none";
   };
 
-  const handleConfirm = () => {
-    onConfirm(newTransaction); // Pass newTransaction data to the parent component
-    setNewTransaction({ TransactionID: "", Reason: "", Action: "", Date: null }); // Reset the form
+  const handleConfirm = async () => {
+    try {
+      const response = await axios.post(`http://127.0.0.1:8000/CreateRequestUser`, {
+        TransactionID: selectedItem.TransactionID,
+        Reason: valueReason,
+        Deadline: date,
+        Status: ValuePend,
+      });
+      alert("Request created successfully:", response.data);
+    } catch (error) {
+      alert('You have already send a Request');
+      console.error('Error In Creating Request', error);
+    }
   };
-  
+
+  const handleDateChange = (e) => {
+    const selectedDate = new Date(e.value); // Convert to Date object
+    const localDate = new Date(selectedDate.getTime() - selectedDate.getTimezoneOffset() * 60000); // Convert to local time
+    const formattedDate = localDate.toISOString().split('T')[0]; // Extract date portion
+    setDate(formattedDate);
+  };
+
   return (
     <>
 
@@ -60,7 +116,7 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
 ,100..700,0..1,-50..200" />
 
     <div className="WholeContent">
-
+    {console.log(ID)}
     <aside>
           <div className="aside">
             <div className="sidebar">
@@ -125,23 +181,25 @@ s2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48
               <div className="lower1">
               <div className="uppercal">
                 <h3>
-                  Item Id:
+                  Transaction Id:
                 </h3>
                 <h3>
                   New Deadline:
                 </h3>
                  </div> 
                  <div className="uppercal2">
-                <InputNumber className='Itemid' value={newTransaction.TransactionID} onChange={(e) => handleNewInputChange('TransactionID', e.target.value)} inputStyle={{fontSize: '20px'}} />
-                <Calendar className='calendar' inputStyle={{fontSize: '20px'}} value={date} onChange={(e) => setDate(e.value)} />
+             
+                <Dropdown className="Itemid" value={selectedItem} onChange={(e) => setSelectedItem(e.value)} options={borrowedItems} optionLabel="TransactionID" 
+                      placeholder="Select Item"  itemTemplate={itemTemplate} inputStyle={{fontSize: '20px'}} />
+                  <Calendar className='calendar' inputStyle={{fontSize: '20px'}} value={date} onChange={handleDateChange}  dateFormat="yy-mm-dd"  />
              </div>
                
                 <div className='lowercal'>
                   <h3>
                     Reason:
                   </h3>
-                  <InputTextarea className='reason' inputStyle={{fontSize: '20px'}} autoResize value={newTransaction.Reason}
-  onChange={(e) => handleNewInputChange('Reason', e.target.value)} rows={5} cols={30} />
+                  <InputTextarea className='reason' inputStyle={{fontSize: '20px'}} autoResize value={valueReason}
+                    onChange={(e) => setValueReason( e.target.value)} rows={5} cols={30} />
                   </div>
                   <Button  className='confirmc' label='Confirm' onClick={handleConfirm}  />
               </div>
