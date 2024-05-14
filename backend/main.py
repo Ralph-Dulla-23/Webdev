@@ -22,7 +22,10 @@ class EditItem(BaseModel):
     FromLab: str
     ItemDescription: str
     Quantity: int
+<<<<<<< HEAD
     Total_Quantity: int
+=======
+>>>>>>> 17902798dd020ad6c45c7b8590e6511ac5eed12f
 
 class CreateRequestUser(BaseModel):
     TransactionID: int
